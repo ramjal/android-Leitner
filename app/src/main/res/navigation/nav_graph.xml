@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/QuestionFragment">
+
+    <fragment
+        android:id="@+id/QuestionFragment"
+        android:name="com.example.leitner.question.QuestionFragment"
+        android:label="@string/question_fragment_label">
+
+        <action
+            android:id="@+id/action_Question_to_Answer"
+            app:destination="@id/AnswerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/AnswerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AnswerFragment"
+        android:name="com.example.leitner.answer.AnswerFragment"
+        android:label="@string/answer_fragment_label"
+        tools:layout="@layout/fragment_answer">
+        <action
+            android:id="@+id/action_Answer_to_Question"
+            app:destination="@id/QuestionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/QuestionFragment" />
+        <argument
+            android:name="answer"
+            app:argType="string"
+            android:defaultValue="N/A" />
+    </fragment>
+</navigation>
