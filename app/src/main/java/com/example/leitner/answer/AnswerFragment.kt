@@ -36,10 +36,9 @@ class AnswerFragment : Fragment() {
 
         viewModelFactory = AnswerViewModelFactory(answerFragmentArgs.answer)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AnswerViewModel::class.java)
-        //Log.i("GameFragment", "Called ViewModelProvider to create the GameViewModel")
 
         binding.viewModel = viewModel
-
+        binding.lifecycleOwner = this
 
         return binding.root
     }
