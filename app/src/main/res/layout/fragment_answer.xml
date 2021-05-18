@@ -16,10 +16,12 @@
 
         <TextView
             android:id="@+id/textview_answer"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewModel.answer}"
-            style="@style/MainTextView"
+            android:textSize="24sp"
+            android:layout_margin="8dp"
+            android:layout_marginHorizontal="24dp"
             app:layout_constraintBottom_toTopOf="@id/button_second"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
