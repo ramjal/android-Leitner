@@ -40,13 +40,7 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            var ans: String = "deliberately created rather than arising naturally or spontaneously.\n" +
-                "created or arranged in a way that seems artificial and unrealistic.\n" +
-                "\"the ending of the novel is too pat and contrived\""
-
-            val action = QuestionFragmentDirections.actionQuestionToAnswer(ans)
-            findNavController().navigate(action)
-            //findNavController().navigate(R.id.action_Question_to_Answer)
+            findNavController().navigate(R.id.action_Question_to_Answer)
         }
     }
 

@@ -20,8 +20,7 @@ class AnswerFragment : Fragment() {
     private val answerFragmentArgs by navArgs<AnswerFragmentArgs>()
 
     private var _binding: FragmentAnswerBinding? = null
-    private lateinit var viewModel: AnswerViewModel
-    private lateinit var viewModelFactory: AnswerViewModelFactory
+    private lateinit var viewModel: QuestionViewModel
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -33,9 +32,7 @@ class AnswerFragment : Fragment() {
     ): View? {
 
         _binding = FragmentAnswerBinding.inflate(inflater, container, false)
-
-        viewModelFactory = AnswerViewModelFactory(answerFragmentArgs.answer)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AnswerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
