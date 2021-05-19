@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.leitner.question.QuestionViewModel" />
+            type="com.example.leitner.answer.AnswerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="@string/previous"
+            android:text="@string/nextWord"
+            android:onClick="@{()-> viewModel.onNextWord()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

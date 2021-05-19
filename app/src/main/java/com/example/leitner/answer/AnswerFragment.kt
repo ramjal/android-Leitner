@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,7 +21,8 @@ class AnswerFragment : Fragment() {
     private val answerFragmentArgs by navArgs<AnswerFragmentArgs>()
 
     private var _binding: FragmentAnswerBinding? = null
-    private lateinit var viewModel: QuestionViewModel
+    private lateinit var viewModel: AnswerViewModel
+    private lateinit var viewModelFactory: AnswerViewModelFactory
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,21 +34,30 @@ class AnswerFragment : Fragment() {
     ): View? {
 
         _binding = FragmentAnswerBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
+        viewModelFactory = AnswerViewModelFactory(answerFragmentArgs.answerIndex)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AnswerViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // Navigates back to question when button is pressed
+        viewModel.eventNexWord.observe(viewLifecycleOwner, Observer { playAgain ->
+            if (playAgain) {
+                findNavController().navigate(R.id.action_Answer_to_Question)
+                viewModel.onNextWordComplete()
+            }
+        })
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_Answer_to_Question)
-        }
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        binding.buttonSecond.setOnClickListener {
+//            findNavController().navigate(R.id.action_Answer_to_Question)
+//        }
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

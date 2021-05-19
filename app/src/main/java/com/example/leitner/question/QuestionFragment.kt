@@ -40,7 +40,8 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_Question_to_Answer)
+            val action = QuestionFragmentDirections.actionQuestionToAnswer(viewModel.currIndex.value!!.minus(1))
+            findNavController().navigate(action)
         }
     }
 
