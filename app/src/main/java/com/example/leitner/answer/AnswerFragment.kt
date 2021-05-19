@@ -51,14 +51,6 @@ class AnswerFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        binding.buttonSecond.setOnClickListener {
-//            findNavController().navigate(R.id.action_Answer_to_Question)
-//        }
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

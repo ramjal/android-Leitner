@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.leitner.R
 import com.example.leitner.databinding.FragmentQuestionBinding
 
 /**
@@ -33,16 +33,16 @@ class QuestionFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        // Navigates answer fragment to check the answer
+        viewModel.eventCheckAnswer.observe(viewLifecycleOwner, Observer { checkWordFlag ->
+            if (checkWordFlag) {
+                val action = QuestionFragmentDirections.actionQuestionToAnswer(viewModel.currIndex.value!!.minus(1))
+                findNavController().navigate(action)
+                viewModel.onCheckAnswerComplete()
+            }
+        })
+
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonFirst.setOnClickListener {
-            val action = QuestionFragmentDirections.actionQuestionToAnswer(viewModel.currIndex.value!!.minus(1))
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {

@@ -8,15 +8,9 @@ import com.example.leitner.Repos
 
 class AnswerViewModel(theAnswerIndex: Int) : ViewModel() {
 
-//    private var _index = MutableLiveData<Int>()
-//    val index : LiveData<Int>
-//        get() = _index
-
     private val _eventNexWord = MutableLiveData<Boolean>()
     val eventNexWord: LiveData<Boolean>
         get() = _eventNexWord
-
-
 
     private var _answer = MutableLiveData<String>()
     val answer : LiveData<String>
@@ -25,13 +19,11 @@ class AnswerViewModel(theAnswerIndex: Int) : ViewModel() {
     private var _repos = Repos()
 
     init {
-        Log.i("AnswerViewModel", "theAnswerIndex: $theAnswerIndex")
+        //Log.i("AnswerViewModel", "theAnswerIndex: $theAnswerIndex")
         _answer.value = _repos.getAnswer(theAnswerIndex)
     }
 
-
     fun onNextWord() {
-        //_index.value = _index.value?.plus(1)
         _eventNexWord.value = true
     }
 

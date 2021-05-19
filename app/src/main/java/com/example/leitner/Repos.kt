@@ -17,6 +17,12 @@ class Repos {
             "Any sluggish bottom-dwelling ray of the order Torpediniformes having a rounded body and electric organs on each side of the head capable of emitting strong electric discharges"
         )
 
+    private val _arrayDeque = ArrayDeque<Int>()
+
+    init {
+        _arrayDeque.addAll(listOf(1,2,3,4,5,6,7,8,9))
+    }
+
     fun getQuestion(index: Int) : String {
         return _questions.get(index)
     }
@@ -24,5 +30,14 @@ class Repos {
     fun getAnswer(index: Int) : String {
         return _answers.get(index)
     }
+
+    fun getCurrIndex() : Int {
+        return _arrayDeque.first()
+    }
+
+    fun moveToBackOfList() {
+        _arrayDeque.addLast(_arrayDeque.removeFirst())
+    }
+
 
 }
