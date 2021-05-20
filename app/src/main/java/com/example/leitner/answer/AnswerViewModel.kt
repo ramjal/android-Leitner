@@ -1,10 +1,9 @@
 package com.example.leitner.answer
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.leitner.Repos
+import com.example.leitner.database.Repos
 
 class AnswerViewModel(theAnswerIndex: Int) : ViewModel() {
 

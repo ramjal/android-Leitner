@@ -1,4 +1,4 @@
-package com.example.leitner
+package com.example.leitner.database
 
 class Repos {
     private val _questions =

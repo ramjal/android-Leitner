@@ -3,7 +3,7 @@ package com.example.leitner.question
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.leitner.Repos
+import com.example.leitner.database.Repos
 
 class QuestionViewModel : ViewModel() {
     // The current question
