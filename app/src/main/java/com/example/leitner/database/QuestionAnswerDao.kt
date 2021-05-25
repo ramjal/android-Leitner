@@ -15,14 +15,20 @@ interface QuestionAnswerDao {
     @Delete
     fun delete(qAnda: QuestionAnswer)
 
-//    @Query("Update question_answer set boxId = boxId + 1 where uniqueId = :key")
-//    fun moveUpOneBox(key: Long)
-
     // Anything inside this method runs in a single transaction.
+//    @Transaction
+//    fun moveCard(oldQA: QuestionAnswer, newQA: QuestionAnswer) {
+//        insert(newQA)
+//        delete(oldQA)
+//    }
+
     @Transaction
-    fun moveCard(oldQA: QuestionAnswer, newQA: QuestionAnswer) {
-        insert(newQA)
-        delete(oldQA)
+    fun moveCardUp(oldQA: QuestionAnswer) {
+        val oldID = oldQA.uniqueId
+        oldQA.uniqueId = 0
+        oldQA.boxId++
+        insert(oldQA)
+        deleteById(oldID)
     }
 
     @Query("Select * from question_answer where uniqueId = :key")
@@ -39,6 +45,9 @@ interface QuestionAnswerDao {
 
     @Query("select count(uniqueId) from question_answer where boxId = :boxId")
     fun getCountByBox(boxId: Int): Int
+
+    @Query("Delete from question_answer  where uniqueId = :key")
+    fun deleteById(key: Long)
 
     @Query("Delete from question_answer")
     fun clear()

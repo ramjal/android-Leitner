@@ -114,13 +114,14 @@ class DatabaseTest {
                                     "ques:${card1.question}, ans:${card1.answer}")
 
         //var card2 = QuestionAnswer(boxId = card1.boxId + 1, question = card1.question, answer = card1.answer)
-        var card2 = card1.copy(uniqueId = 0, card1.boxId + 1)//QuestionAnswer(boxId = card1.boxId + 1, question = card1.question, answer = card1.answer)
-        questionAnswerDao.moveCard(card1, card2)
+        //var card2 = card1.copy(uniqueId = 0, card1.boxId + 1)//QuestionAnswer(boxId = card1.boxId + 1, question = card1.question, answer = card1.answer)
+        //questionAnswerDao.moveCard(card1, card2)
+        questionAnswerDao.moveCardUp(card1)
 
         val box1 = questionAnswerDao.getCountByBox(1)
         val box2 = questionAnswerDao.getCountByBox(2)
 
-        card2 = questionAnswerDao.getCardById(2)
+        var card2 = questionAnswerDao.getCardById(2)
         count = questionAnswerDao.getTotalCount()
 
         assertEquals(card2.uniqueId, 2)
