@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.leitner.answer.AnswerViewModelFactory
+import com.example.leitner.database.QuestionAnswerDatabase
+import com.example.leitner.databinding.FragmentAnswerBinding
 import com.example.leitner.databinding.FragmentQuestionBinding
 
 /**
@@ -17,6 +20,7 @@ class QuestionFragment : Fragment() {
 
     private var _binding: FragmentQuestionBinding? = null
     private lateinit var viewModel: QuestionViewModel
+    private lateinit var viewModelFactory: QuestionViewModelFactory
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -27,8 +31,13 @@ class QuestionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val application = requireNotNull(this.activity).application
+        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+        viewModelFactory = QuestionViewModelFactory(datasource)
+
+        viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
+
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this

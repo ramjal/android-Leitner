@@ -1,10 +1,10 @@
 package com.example.leitner.database
 
 class Repos {
-    private val _questions =
+    val _questions =
         listOf("contrived", "pat (adjective)", "mastered", "saucepan", "intermixture", "aught", "Jainism", "observation tower", "numbfish")
 
-    private val _answers =
+    val _answers =
         listOf(
             "deliberately created rather than arising naturally or spontaneously.",
             "exactly suited to the purpose or occasion\n\nsuspiciously appropriate",

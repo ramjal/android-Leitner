@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
+import com.example.leitner.database.QuestionAnswer
+import com.example.leitner.database.QuestionAnswerDatabase
 import com.example.leitner.databinding.FragmentAnswerBinding
 import com.example.leitner.question.QuestionViewModel
 
@@ -33,8 +35,11 @@ class AnswerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val application = requireNotNull(this.activity).application
+
+        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
         _binding = FragmentAnswerBinding.inflate(inflater, container, false)
-        viewModelFactory = AnswerViewModelFactory(answerFragmentArgs.answerIndex)
+        viewModelFactory = AnswerViewModelFactory(answerFragmentArgs.answerIndex, datasource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AnswerViewModel::class.java)
 
         binding.viewModel = viewModel

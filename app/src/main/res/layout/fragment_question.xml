@@ -54,7 +54,7 @@
             android:id="@+id/textview_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/string_format(viewModel.currIndex)}"
+            android:text="@{@string/string_format(viewModel.totalCount)}"
             android:textStyle="bold"
             android:textSize="36sp"
             android:textAlignment="center"

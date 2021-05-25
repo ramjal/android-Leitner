@@ -23,12 +23,20 @@ interface QuestionAnswerDao {
 //    }
 
     @Transaction
-    fun moveCardUp(oldQA: QuestionAnswer) {
-        val oldID = oldQA.uniqueId
-        oldQA.uniqueId = 0
-        oldQA.boxId++
-        insert(oldQA)
+    fun moveCardUp(key: Long) {
+        var theCard = getCardById(key)
+        val oldID = theCard.uniqueId
+        theCard.uniqueId = 0
+        theCard.boxId++
+        insert(theCard)
         deleteById(oldID)
+    }
+
+    @Transaction
+    fun insertTempCards(questions: List<String>,  answers: List<String>) {
+        for (i in questions.indices) {
+            insert(QuestionAnswer(question = questions[i], answer = answers[i], boxId = 1))
+        }
     }
 
     @Query("Select * from question_answer where uniqueId = :key")
