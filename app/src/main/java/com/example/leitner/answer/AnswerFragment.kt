@@ -41,8 +41,8 @@ class AnswerFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Navigates back to question when button is pressed
-        viewModel.eventNexWord.observe(viewLifecycleOwner, Observer { playAgain ->
-            if (playAgain) {
+        viewModel.eventNexWord.observe(viewLifecycleOwner, Observer { nextWord ->
+            if (nextWord) {
                 findNavController().navigate(R.id.action_Answer_to_Question)
                 viewModel.onNextWordComplete()
             }
