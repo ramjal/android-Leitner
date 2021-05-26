@@ -15,6 +15,10 @@ class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    private var _questionAnswer = MutableLiveData<QuestionAnswer>()
+    val questionAnswer : LiveData<QuestionAnswer>
+        get() = _questionAnswer
+
     // The current question
     private var _question = MutableLiveData<String>()
     val question : LiveData<String>
@@ -66,15 +70,15 @@ class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
 
     private fun getCurrentQuestion() {
         uiScope.launch {
-            _question.value = getCurrentQuestionFromDatabase()
+            _questionAnswer.value = getCurrentQuestionFromDatabase()
         }
     }
 
-    private suspend fun getCurrentQuestionFromDatabase(): String? {
+    private suspend fun getCurrentQuestionFromDatabase(): QuestionAnswer? {
         return withContext(Dispatchers.IO) {
-            //var card = datasource.getFirstCardInBox(1)
-            var card = datasource.getCardById(9)
-            card?.question
+            var card = datasource.getFirstCardInBox(1)
+            //var card = datasource.getCardById(9)
+            card
         }
     }
 

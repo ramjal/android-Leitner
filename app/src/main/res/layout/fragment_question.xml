@@ -18,7 +18,7 @@
             android:id="@+id/textview_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.question}"
+            android:text="@{viewModel.questionAnswer.question}"
             android:textStyle="bold"
             android:textSize="36sp"
             android:textAlignment="center"
@@ -40,27 +40,40 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button_test"
+            android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="200dp"
-            android:text="Next"
             android:onClick="@{()-> viewModel.onMoveToBackOfList()}"
+            android:text="Next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textview_test"
+            android:id="@+id/textview_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{@string/string_format(viewModel.totalCount)}"
-            android:textStyle="bold"
-            android:textSize="24sp"
+            android:text="@{@string/total_string_format(viewModel.totalCount)}"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/button_test"
-            app:layout_constraintStart_toStartOf="@+id/button_test"
-            app:layout_constraintTop_toBottomOf="@+id/button_test" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_next" />
+
+        <TextView
+            android:id="@+id/textview_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{@string/id_string_format(viewModel.questionAnswer.uniqueId)}"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

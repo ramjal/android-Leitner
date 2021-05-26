@@ -45,7 +45,8 @@ class QuestionFragment : Fragment() {
         // Navigates answer fragment to check the answer
         viewModel.eventCheckAnswer.observe(viewLifecycleOwner, Observer { checkWordFlag ->
             if (checkWordFlag) {
-                val action = QuestionFragmentDirections.actionQuestionToAnswer(viewModel.currIndex.value!!.minus(1))
+                val id = viewModel.questionAnswer.value?.uniqueId
+                val action = QuestionFragmentDirections.actionQuestionToAnswer(id!!.minus(1))
                 findNavController().navigate(action)
                 viewModel.onCheckAnswerComplete()
             }

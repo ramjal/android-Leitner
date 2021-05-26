@@ -25,6 +25,9 @@ interface QuestionAnswerDao {
     @Transaction
     fun moveCardUp(key: Long) {
         var theCard = getCardById(key)
+        if (theCard == null) {
+            return
+        }
         val oldID = theCard.uniqueId
         theCard.uniqueId = 0
         theCard.boxId++
@@ -40,7 +43,7 @@ interface QuestionAnswerDao {
     }
 
     @Query("Select * from question_answer where uniqueId = :key")
-    fun getCardById(key: Long) : QuestionAnswer
+    fun getCardById(key: Long) : QuestionAnswer?
 
     @Query("Select * from question_answer where boxId = :boxId order by uniqueId limit 1")
     fun getFirstCardInBox(boxId: Int) : QuestionAnswer

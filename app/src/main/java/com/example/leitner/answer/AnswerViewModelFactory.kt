@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.leitner.database.QuestionAnswerDao
 
 class AnswerViewModelFactory(
-        private val answerIndex: Int,
+        private val answerIndex: Long,
         private val dataSource: QuestionAnswerDao) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

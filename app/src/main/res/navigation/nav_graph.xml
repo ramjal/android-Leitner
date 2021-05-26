@@ -33,6 +33,6 @@
             app:popUpTo="@id/QuestionFragment" />
         <argument
             android:name="answer_index"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 </navigation>

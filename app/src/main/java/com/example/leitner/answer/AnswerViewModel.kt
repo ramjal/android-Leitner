@@ -7,7 +7,7 @@ import com.example.leitner.database.QuestionAnswerDao
 import com.example.leitner.database.Repos
 import kotlinx.coroutines.*
 
-class AnswerViewModel(cardIndex: Int,
+class AnswerViewModel(cardIndex: Long,
                       val datasource: QuestionAnswerDao) : ViewModel() {
 
     private var viewModelJob = Job()
@@ -23,30 +23,34 @@ class AnswerViewModel(cardIndex: Int,
 
     private var _repos = Repos()
 
-    //private var _cardKey: Long
+    private var _cardKey: Long
 
     init {
         //Log.i("AnswerViewModel", "theAnswerIndex: $theAnswerIndex")
-        _answer.value = _repos.getAnswer(cardIndex)
-        //_cardKey = cardIndex
+        _answer.value = _repos.getAnswer(cardIndex.toInt())
+        _cardKey = cardIndex + 1
     }
 
-    private fun moveCardUp(key: Int) {
+    private fun moveCardUp(key: Long) {
         uiScope.launch {
             moveCardUpDatabase(key)
         }
     }
 
-    private suspend fun moveCardUpDatabase(key: Int) {
+    private suspend fun moveCardUpDatabase(key: Long) {
         withContext(Dispatchers.IO) {
-            datasource.moveCardUp(key.toLong())
+            datasource.moveCardUp(key)
         }
     }
 
-    fun onNextWord() {
-
+    fun onPassed() {
+        moveCardUp(_cardKey)
         _eventNexWord.value = true
+    }
+
+    fun onRecycle() {
         //moveCardUp(_cardKey)
+        _eventNexWord.value = true
     }
 
     fun onNextWordComplete() {
