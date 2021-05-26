@@ -5,11 +5,12 @@
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>
     <string name="check">Check</string>
-    <string name="nextWord">Next Word</string>
+    <string name="okButton">OK</string>
+    <string name="failedButton">Fail</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="string_format">%d</string>
+    <string name="string_format">Total: %d</string>
 
 </resources>
