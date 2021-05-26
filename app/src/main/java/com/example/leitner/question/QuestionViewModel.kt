@@ -10,7 +10,7 @@ import com.example.leitner.database.QuestionAnswerDao
 import com.example.leitner.database.Repos
 import kotlinx.coroutines.*
 
-class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
+class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDao) : ViewModel()  {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -29,9 +29,9 @@ class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
         get() = _totalCount
 
     // The current question/answer index
-    private var _currIndex = MutableLiveData<Int>()
-    val currIndex : LiveData<Int>
-        get() = _currIndex
+//    private var _currIndex = MutableLiveData<Int>()
+//    val currIndex : LiveData<Int>
+//        get() = _currIndex
 
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>
@@ -51,36 +51,37 @@ class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
 
         //insertTempCards()
-        getTotalCount()
-        getCurrentQuestion()
+        getTotalCount(boxId)
+        getCurrentQuestion(boxId)
     }
 
-    private fun getTotalCount() {
+    private fun getTotalCount(boxId: Int) {
         uiScope.launch {
-            _totalCount.value = getTotalCountFromDatabase()
+            _totalCount.value = getTotalCountFromDatabase(boxId)
         }
     }
 
-    private suspend fun getTotalCountFromDatabase(): Int? {
+    private suspend fun getTotalCountFromDatabase(boxId: Int): Int? {
         return withContext(Dispatchers.IO) {
-            var count = datasource.getTotalCount()
+            var count = datasource.getCountByBox(boxId)
             count
         }
     }
 
-    private fun getCurrentQuestion() {
+    private fun getCurrentQuestion(boxId: Int) {
         uiScope.launch {
-            _questionAnswer.value = getCurrentQuestionFromDatabase()
+            _questionAnswer.value = getFirstQuestionFromDatabase(boxId)
         }
     }
 
-    private suspend fun getCurrentQuestionFromDatabase(): QuestionAnswer? {
+    private suspend fun getFirstQuestionFromDatabase(boxId: Int): QuestionAnswer? {
         return withContext(Dispatchers.IO) {
-            var card = datasource.getFirstCardInBox(1)
-            //var card = datasource.getCardById(9)
+            var card = datasource.getFirstCardInBox(boxId)
             card
         }
     }
+
+
 
     private fun insertTempCards() {
         uiScope.launch {
@@ -95,17 +96,15 @@ class QuestionViewModel(val datasource: QuestionAnswerDao) : ViewModel()  {
     }
 
 
-
-
     fun onMoveToBackOfList() {
-        _repos.moveToBackOfList()
-        updateCurrent()
+        //_repos.moveToBackOfList()
+        //updateCurrent()
     }
-
-    private fun updateCurrent() {
-        _currIndex.value = _repos.getCurrIndex()
-        _question.value = _repos.getQuestion(_currIndex.value!!.minus(1))
-    }
+//
+//    private fun updateCurrent() {
+//        _currIndex.value = _repos.getCurrIndex()
+//        _question.value = _repos.getQuestion(_currIndex.value!!.minus(1))
+//    }
 
     fun onCheckAnswer() {
         _eventCheckAnswer.value = true

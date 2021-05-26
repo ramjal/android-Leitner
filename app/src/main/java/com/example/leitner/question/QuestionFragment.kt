@@ -33,8 +33,7 @@ class QuestionFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-        viewModelFactory = QuestionViewModelFactory(datasource)
-
+        viewModelFactory = QuestionViewModelFactory(2, datasource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
@@ -46,9 +45,11 @@ class QuestionFragment : Fragment() {
         viewModel.eventCheckAnswer.observe(viewLifecycleOwner, Observer { checkWordFlag ->
             if (checkWordFlag) {
                 val id = viewModel.questionAnswer.value?.uniqueId
-                val action = QuestionFragmentDirections.actionQuestionToAnswer(id!!.minus(1))
-                findNavController().navigate(action)
-                viewModel.onCheckAnswerComplete()
+                if (id != null) {
+                    val action = QuestionFragmentDirections.actionQuestionToAnswer(id)
+                    findNavController().navigate(action)
+                    viewModel.onCheckAnswerComplete()
+                }
             }
         })
 

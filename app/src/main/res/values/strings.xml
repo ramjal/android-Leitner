@@ -4,7 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>
-    <string name="check">Check</string>
+    <string name="check">Check Answer</string>
     <string name="okButton">OK</string>
     <string name="failedButton">Fail</string>
 
@@ -13,5 +13,6 @@
 
     <string name="total_string_format">Total: %d</string>
     <string name="id_string_format">ID: %d</string>
+    <string name="boxid_string_format">Box ID: %d</string>
 
 </resources>

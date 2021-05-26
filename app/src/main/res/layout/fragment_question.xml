@@ -75,6 +75,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_next" />
 
+        <TextView
+            android:id="@+id/textview_box_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@{@string/boxid_string_format(viewModel.questionAnswer.boxId)}"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_next" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -28,29 +28,30 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_recycle"
+            android:id="@+id/fab_wrong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
-            android:onClick="@{()-> viewModel.onRecycle()}"
+            app:backgroundTint="@android:color/holo_orange_dark"
+            android:onClick="@{()-> viewModel.onWrong()}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fab_pass"
+            app:layout_constraintEnd_toStartOf="@+id/fab_correct"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_recycle" />
+            app:srcCompat="@drawable/ic_wrong" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_pass"
+            android:id="@+id/fab_correct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
-            android:onClick="@{()-> viewModel.onPassed()}"
+            android:onClick="@{()-> viewModel.onCorrect()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fab_recycle"
+            app:layout_constraintStart_toEndOf="@+id/fab_wrong"
             app:srcCompat="@drawable/ic_check" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
-import com.example.leitner.database.QuestionAnswer
 import com.example.leitner.database.QuestionAnswerDatabase
 import com.example.leitner.databinding.FragmentAnswerBinding
-import com.example.leitner.question.QuestionViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -46,8 +44,8 @@ class AnswerFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Navigates back to question when button is pressed
-        viewModel.eventNexWord.observe(viewLifecycleOwner, Observer { nextWord ->
-            if (nextWord) {
+        viewModel.gotoNexWord.observe(viewLifecycleOwner, Observer { gotoNexWordFlag ->
+            if (gotoNexWordFlag) {
                 findNavController().navigate(R.id.action_Answer_to_Question)
                 viewModel.onNextWordComplete()
             }

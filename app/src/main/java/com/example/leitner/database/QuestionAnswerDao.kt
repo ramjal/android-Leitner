@@ -6,6 +6,15 @@ import androidx.room.*
 
 @Dao
 interface QuestionAnswerDao {
+
+    @Transaction
+    fun insertTempCards(questions: List<String>,  answers: List<String>) {
+        for (i in questions.indices) {
+            insert(QuestionAnswer(question = questions[i], answer = answers[i], boxId = 1))
+        }
+    }
+
+
     @Insert
     fun insert(qAnda: QuestionAnswer)
 
@@ -14,13 +23,6 @@ interface QuestionAnswerDao {
 
     @Delete
     fun delete(qAnda: QuestionAnswer)
-
-    // Anything inside this method runs in a single transaction.
-//    @Transaction
-//    fun moveCard(oldQA: QuestionAnswer, newQA: QuestionAnswer) {
-//        insert(newQA)
-//        delete(oldQA)
-//    }
 
     @Transaction
     fun moveCardUp(key: Long) {
@@ -32,14 +34,19 @@ interface QuestionAnswerDao {
         theCard.uniqueId = 0
         theCard.boxId++
         insert(theCard)
-        deleteById(oldID)
+        deleteCardById(oldID)
     }
 
     @Transaction
-    fun insertTempCards(questions: List<String>,  answers: List<String>) {
-        for (i in questions.indices) {
-            insert(QuestionAnswer(question = questions[i], answer = answers[i], boxId = 1))
+    fun moveCardBack(key: Long) {
+        var theCard = getCardById(key)
+        if (theCard == null) {
+            return
         }
+        val oldID = theCard.uniqueId
+        theCard.uniqueId = 0
+        insert(theCard)
+        deleteCardById(oldID)
     }
 
     @Query("Select * from question_answer where uniqueId = :key")
@@ -58,7 +65,7 @@ interface QuestionAnswerDao {
     fun getCountByBox(boxId: Int): Int
 
     @Query("Delete from question_answer  where uniqueId = :key")
-    fun deleteById(key: Long)
+    fun deleteCardById(key: Long)
 
     @Query("Delete from question_answer")
     fun clear()
