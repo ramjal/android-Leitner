@@ -45,7 +45,7 @@ class QuestionFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Navigates answer fragment to check the answer
+        // observ eventCheckAnswer to navigate to answer fragment
         viewModel.eventCheckAnswer.observe(viewLifecycleOwner, Observer { checkWordFlag ->
             if (checkWordFlag) {
                 val id = viewModel.questionAnswer.value?.uniqueId
@@ -57,7 +57,19 @@ class QuestionFragment : Fragment() {
             }
         })
 
+        selectBox(questionFragmentArgs.boxId)
+
         return binding.root
+    }
+
+    private fun selectBox(boxId: Int) {
+        when (boxId) {
+            1 -> binding.box1.isChecked = true
+            2 -> binding.box2.isChecked = true
+            3 -> binding.box3.isChecked = true
+            4 -> binding.box4.isChecked = true
+            5 -> binding.box5.isChecked = true
+        }
     }
 
     override fun onDestroyView() {
