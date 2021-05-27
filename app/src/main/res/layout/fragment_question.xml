@@ -14,6 +14,13 @@
         android:layout_height="match_parent"
         tools:context=".question.QuestionFragment">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="400dp" />
+
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,9 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewModel.questionAnswer.question}"
+            android:textSize="36sp"
             android:layout_marginTop="200dp"
             android:textStyle="bold"
-            android:textSize="36sp"
             android:textAlignment="center"
             android:layout_marginHorizontal="24dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,54 +87,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/button_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="200dp"
-            android:onClick="@{()-> viewModel.onMoveToBackOfList()}"
-            android:text="Next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/textview_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{@string/total_string_format(viewModel.totalCount)}"
             android:textAlignment="center"
+            android:layout_marginTop="40dp"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_next" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
 
         <TextView
             android:id="@+id/textview_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="@{@string/id_string_format(viewModel.questionAnswer.uniqueId)}"
             android:textAlignment="center"
+            android:layout_marginTop="80dp"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_next" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
 
         <TextView
             android:id="@+id/textview_box_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:text="@{@string/boxid_string_format(viewModel.selectedBox)}"
+            android:layout_marginTop="120dp"
+            android:text="@{@string/boxid_string_format(viewModel.questionAnswer.boxId)}"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_next" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

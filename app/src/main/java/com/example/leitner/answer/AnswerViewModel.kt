@@ -21,12 +21,6 @@ class AnswerViewModel(val cardIndex: Long,
     val questionAnswer : LiveData<QuestionAnswer>
         get() = _questionAnswer
 
-    //private var _repos = Repos()
-
-    private var _selectedBox = MutableLiveData<Int>()
-    val selectedBox : LiveData<Int>
-        get() = _selectedBox
-
     private var _cardKey: Long
 
     init {
@@ -39,7 +33,7 @@ class AnswerViewModel(val cardIndex: Long,
         uiScope.launch {
             val card = getAnswerDatabase(key)
             _questionAnswer.value = card
-            _selectedBox.value = card?.boxId
+            //_selectedBox.value = card?.boxId
         }
     }
 

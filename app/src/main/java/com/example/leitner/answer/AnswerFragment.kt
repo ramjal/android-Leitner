@@ -47,7 +47,8 @@ class AnswerFragment : Fragment() {
         // Navigates back to question when button is pressed
         viewModel.gotoNexWord.observe(viewLifecycleOwner, Observer { gotoNexWordFlag ->
             if (gotoNexWordFlag) {
-                val bId = viewModel.selectedBox.value ?: 1
+                //val bId = viewModel.selectedBox.value ?: 1
+                val bId = viewModel.questionAnswer.value?.boxId ?: 1
                 val action = AnswerFragmentDirections.actionAnswerToQuestion(boxId = bId)
                 findNavController().navigate(action)
                 viewModel.onNextWordComplete()

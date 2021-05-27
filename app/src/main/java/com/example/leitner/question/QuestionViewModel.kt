@@ -23,10 +23,6 @@ class QuestionViewModel(val boxId: Int,
     val questionAnswer : LiveData<QuestionAnswer>
         get() = _questionAnswer
 
-    private var _question = MutableLiveData<String>()
-    val question : LiveData<String>
-        get() = _question
-
     private var _totalCount = MutableLiveData<Int>()
     val totalCount : LiveData<Int>
         get() = _totalCount
@@ -34,10 +30,6 @@ class QuestionViewModel(val boxId: Int,
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
-
-    private var _selectedBox = MutableLiveData<Int>()
-    val selectedBox : LiveData<Int>
-        get() = _selectedBox
 
     // Temp repository
     private var _repos = Repos()
@@ -49,12 +41,7 @@ class QuestionViewModel(val boxId: Int,
 
     init {
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
-
         //insertTempCards()
-        //if (_selectedBox.value == null)
-        //{
-            _selectedBox.value = boxId
-        //}
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
     }
@@ -64,7 +51,6 @@ class QuestionViewModel(val boxId: Int,
             _totalCount.value = getTotalCountFromDatabase(boxId)
         }
     }
-
     private suspend fun getTotalCountFromDatabase(boxId: Int): Int? {
         return withContext(Dispatchers.IO) {
             var count = datasource.getCountByBox(boxId)
@@ -77,7 +63,6 @@ class QuestionViewModel(val boxId: Int,
             _questionAnswer.value = getFirstQuestionFromDatabase(boxId)
         }
     }
-
     private suspend fun getFirstQuestionFromDatabase(boxId: Int): QuestionAnswer? {
         return withContext(Dispatchers.IO) {
             var card = datasource.getFirstCardInBox(boxId)
@@ -85,35 +70,27 @@ class QuestionViewModel(val boxId: Int,
         }
     }
 
-
+    /**
+     * add temp data to database
+     */
     private fun insertTempCards() {
         uiScope.launch {
             insertTempCardsToDatabase()
         }
     }
-
     private suspend fun insertTempCardsToDatabase() {
         return withContext(Dispatchers.IO) {
             datasource.insertTempCards(_repos._questions, _repos._answers)
         }
     }
 
-
-    fun onMoveToBackOfList() {
-        //_repos.moveToBackOfList()
-        //updateCurrent()
-    }
-//
-//    private fun updateCurrent() {
-//        _currIndex.value = _repos.getCurrIndex()
-//        _question.value = _repos.getQuestion(_currIndex.value!!.minus(1))
-//    }
-
+    /**
+     * called when a top box is clicked
+     */
     fun onBoxClicked(id: Int) {
         Log.d("QuestionViewModel", "Id: ${id}")
         getTotalCount(id)
         getCurrentQuestion(id)
-        _selectedBox.value = id
     }
 
     fun onCheckAnswer() {

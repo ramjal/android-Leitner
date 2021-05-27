@@ -37,11 +37,7 @@ class QuestionFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-        var boxId = questionFragmentArgs?.boxId
-        if (boxId == null) {
-            boxId = 1
-        }
-        viewModelFactory = QuestionViewModelFactory(boxId, datasource)
+        viewModelFactory = QuestionViewModelFactory(questionFragmentArgs.boxId, datasource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
