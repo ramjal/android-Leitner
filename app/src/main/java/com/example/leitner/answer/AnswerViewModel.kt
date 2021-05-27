@@ -7,7 +7,7 @@ import com.example.leitner.database.QuestionAnswer
 import com.example.leitner.database.QuestionAnswerDao
 import kotlinx.coroutines.*
 
-class AnswerViewModel(cardIndex: Long,
+class AnswerViewModel(val cardIndex: Long,
                       val datasource: QuestionAnswerDao) : ViewModel() {
 
     private var viewModelJob = Job()
@@ -22,6 +22,9 @@ class AnswerViewModel(cardIndex: Long,
         get() = _answer
 
     //private var _repos = Repos()
+    private var _selectedBox = MutableLiveData<Int>()
+    val selectedBox : LiveData<Int>
+        get() = _selectedBox
 
     private var _cardKey: Long
 
@@ -34,7 +37,9 @@ class AnswerViewModel(cardIndex: Long,
 
     private fun getAnswer(key: Long) {
         uiScope.launch {
-            _answer.value = getAnswerDatabase(key)?.answer
+            val card = getAnswerDatabase(key)
+            _answer.value = card?.answer
+            _selectedBox.value = card?.boxId
         }
     }
 

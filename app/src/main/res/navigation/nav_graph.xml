@@ -9,7 +9,6 @@
         android:id="@+id/QuestionFragment"
         android:name="com.example.leitner.question.QuestionFragment"
         android:label="@string/question_fragment_label">
-
         <action
             android:id="@+id/action_Question_to_Answer"
             app:destination="@id/AnswerFragment"
@@ -18,6 +17,10 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/AnswerFragment" />
+        <argument
+            android:name="box_id"
+            app:argType="integer"
+            android:defaultValue="1"/>
     </fragment>
     <fragment
         android:id="@+id/AnswerFragment"

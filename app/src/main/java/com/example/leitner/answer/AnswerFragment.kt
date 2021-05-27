@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
 import com.example.leitner.database.QuestionAnswerDatabase
 import com.example.leitner.databinding.FragmentAnswerBinding
+import com.example.leitner.question.QuestionFragmentDirections
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -46,7 +47,9 @@ class AnswerFragment : Fragment() {
         // Navigates back to question when button is pressed
         viewModel.gotoNexWord.observe(viewLifecycleOwner, Observer { gotoNexWordFlag ->
             if (gotoNexWordFlag) {
-                findNavController().navigate(R.id.action_Answer_to_Question)
+                val bId = viewModel.selectedBox.value ?: 1
+                val action = AnswerFragmentDirections.actionAnswerToQuestion(boxId = bId)
+                findNavController().navigate(action)
                 viewModel.onNextWordComplete()
             }
         })

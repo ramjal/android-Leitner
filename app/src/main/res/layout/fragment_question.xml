@@ -14,6 +14,46 @@
         android:layout_height="match_parent"
         tools:context=".question.QuestionFragment">
 
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--            android:onCheckedChanged="@{(view, id)-> viewModel.onBoxChanged(view, id)}"-->
+
+            <RadioButton
+                android:id="@+id/box1"
+                android:text="1"
+                style="@style/radioButtonStyle" />
+
+            <RadioButton
+                android:id="@+id/box2"
+                android:text="2"
+                style="@style/radioButtonStyle" />
+
+<!--            android:onClick="@{(view)-> viewModel.onBoxClicked(view)}"-->
+
+            <RadioButton
+                android:id="@+id/box3"
+                android:text="3"
+                style="@style/radioButtonStyle" />
+
+            <RadioButton
+                android:id="@+id/box4"
+                android:text="4"
+                style="@style/radioButtonStyle" />
+
+            <RadioButton
+                android:id="@+id/box5"
+                android:text="5"
+                style="@style/radioButtonStyle" />
+
+        </RadioGroup>
+
         <TextView
             android:id="@+id/textview_question"
             android:layout_width="match_parent"
@@ -80,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:text="@{@string/boxid_string_format(viewModel.questionAnswer.boxId)}"
+            android:text="@{@string/boxid_string_format(viewModel.selectedBox)}"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"

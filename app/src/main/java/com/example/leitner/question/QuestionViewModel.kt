@@ -1,6 +1,9 @@
 package com.example.leitner.question
 
 import android.app.Application
+import android.util.Log
+import android.view.View
+import android.widget.RadioGroup
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +13,8 @@ import com.example.leitner.database.QuestionAnswerDao
 import com.example.leitner.database.Repos
 import kotlinx.coroutines.*
 
-class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDao) : ViewModel()  {
+class QuestionViewModel(val boxId: Int,
+                        val datasource: QuestionAnswerDao) : ViewModel()  {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -19,7 +23,6 @@ class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDa
     val questionAnswer : LiveData<QuestionAnswer>
         get() = _questionAnswer
 
-    // The current question
     private var _question = MutableLiveData<String>()
     val question : LiveData<String>
         get() = _question
@@ -28,14 +31,13 @@ class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDa
     val totalCount : LiveData<Int>
         get() = _totalCount
 
-    // The current question/answer index
-//    private var _currIndex = MutableLiveData<Int>()
-//    val currIndex : LiveData<Int>
-//        get() = _currIndex
-
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
+
+    private var _selectedBox = MutableLiveData<Int>()
+    val selectedBox : LiveData<Int>
+        get() = _selectedBox
 
     // Temp repository
     private var _repos = Repos()
@@ -45,12 +47,14 @@ class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDa
         viewModelJob.cancel()
     }
 
-
     init {
-        //updateCurrent()
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
 
         //insertTempCards()
+        //if (_selectedBox.value == null)
+        //{
+            _selectedBox.value = boxId
+        //}
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
     }
@@ -82,7 +86,6 @@ class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDa
     }
 
 
-
     private fun insertTempCards() {
         uiScope.launch {
             insertTempCardsToDatabase()
@@ -105,6 +108,14 @@ class QuestionViewModel(private val boxId: Int, val datasource: QuestionAnswerDa
 //        _currIndex.value = _repos.getCurrIndex()
 //        _question.value = _repos.getQuestion(_currIndex.value!!.minus(1))
 //    }
+
+    fun onBoxChanged(group: RadioGroup, checkedId: Int) {
+        Log.d("QuestionViewModel", "checkId: ${checkedId}")
+    }
+
+    fun onBoxClicked(view: View) {
+        //Log.d("QuestionViewModel", "view: ${view.id}")
+    }
 
     fun onCheckAnswer() {
         _eventCheckAnswer.value = true
