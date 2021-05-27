@@ -17,11 +17,12 @@ class AnswerViewModel(val cardIndex: Long,
     val gotoNexWord: LiveData<Boolean>
         get() = _gotoNexWord
 
-    private var _answer = MutableLiveData<String>()
-    val answer : LiveData<String>
-        get() = _answer
+    private var _questionAnswer = MutableLiveData<QuestionAnswer>()
+    val questionAnswer : LiveData<QuestionAnswer>
+        get() = _questionAnswer
 
     //private var _repos = Repos()
+
     private var _selectedBox = MutableLiveData<Int>()
     val selectedBox : LiveData<Int>
         get() = _selectedBox
@@ -30,7 +31,6 @@ class AnswerViewModel(val cardIndex: Long,
 
     init {
         //Log.i("AnswerViewModel", "theAnswerIndex: $theAnswerIndex")
-        //_answer.value = _repos.getAnswer(cardIndex.toInt().minus(1))
         _cardKey = cardIndex
         getAnswer(_cardKey)
     }
@@ -38,7 +38,7 @@ class AnswerViewModel(val cardIndex: Long,
     private fun getAnswer(key: Long) {
         uiScope.launch {
             val card = getAnswerDatabase(key)
-            _answer.value = card?.answer
+            _questionAnswer.value = card
             _selectedBox.value = card?.boxId
         }
     }

@@ -109,12 +109,11 @@ class QuestionViewModel(val boxId: Int,
 //        _question.value = _repos.getQuestion(_currIndex.value!!.minus(1))
 //    }
 
-    fun onBoxChanged(group: RadioGroup, checkedId: Int) {
-        Log.d("QuestionViewModel", "checkId: ${checkedId}")
-    }
-
-    fun onBoxClicked(view: View) {
-        //Log.d("QuestionViewModel", "view: ${view.id}")
+    fun onBoxClicked(id: Int) {
+        Log.d("QuestionViewModel", "Id: ${id}")
+        getTotalCount(id)
+        getCurrentQuestion(id)
+        _selectedBox.value = id
     }
 
     fun onCheckAnswer() {
