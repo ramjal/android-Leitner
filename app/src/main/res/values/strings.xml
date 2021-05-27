@@ -14,5 +14,10 @@
     <string name="total_string_format">Total: %d</string>
     <string name="id_string_format">ID: %d</string>
     <string name="boxid_string_format">Box ID: %d</string>
+    <string name="box_1">1</string>
+    <string name="box_2">2</string>
+    <string name="box_3">3</string>
+    <string name="box_4">4</string>
+    <string name="box_5">5</string>
 
 </resources>
