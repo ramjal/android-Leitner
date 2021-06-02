@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Leitner</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add_data">Add Test Data</string>
+    <string name="action_delete_data">Delete All Data</string>
     <!-- Strings used for fragments for navigation -->
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>

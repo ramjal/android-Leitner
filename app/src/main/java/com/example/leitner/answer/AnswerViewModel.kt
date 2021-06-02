@@ -29,11 +29,29 @@ class AnswerViewModel(val cardIndex: Long,
         getAnswer(_cardKey)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
+    fun onCorrect() {
+        moveCardUp(_cardKey)
+        _gotoNexWord.value = true
+    }
+
+    fun onWrong() {
+        moveCardBox1(_cardKey)
+        _gotoNexWord.value = true
+    }
+
+    fun onNextWordComplete() {
+        _gotoNexWord.value = false
+    }
+
     private fun getAnswer(key: Long) {
         uiScope.launch {
             val card = getAnswerDatabase(key)
             _questionAnswer.value = card
-            //_selectedBox.value = card?.boxId
         }
     }
 
@@ -56,29 +74,16 @@ class AnswerViewModel(val cardIndex: Long,
         }
     }
 
-    private fun moveCardBack(key: Long) {
+    private fun moveCardBox1(key: Long) {
         uiScope.launch {
-            moveCardBackDatabase(key)
+            moveCardBox1Database(key)
         }
     }
 
-    private suspend fun moveCardBackDatabase(key: Long) {
+    private suspend fun moveCardBox1Database(key: Long) {
         withContext(Dispatchers.IO) {
-            datasource.moveCardBack(key)
+            datasource.moveCardBox1(key)
         }
     }
 
-    fun onCorrect() {
-        moveCardUp(_cardKey)
-        _gotoNexWord.value = true
-    }
-
-    fun onWrong() {
-        moveCardBack(_cardKey)
-        _gotoNexWord.value = true
-    }
-
-    fun onNextWordComplete() {
-        _gotoNexWord.value = false
-    }
 }

@@ -2,6 +2,9 @@ package com.example.leitner.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.time.Instant
+import java.time.LocalDate
+import java.util.*
 
 
 @Dao
@@ -9,11 +12,12 @@ interface QuestionAnswerDao {
 
     @Transaction
     fun insertTempCards(questions: List<String>,  answers: List<String>) {
-        for (i in questions.indices) {
-            insert(QuestionAnswer(question = questions[i], answer = answers[i], boxId = 1))
+        if (getTotalCount() == 0) {
+            for (i in questions.indices) {
+                insert(QuestionAnswer(question = questions[i], answer = answers[i], boxId = 1))
+            }
         }
     }
-
 
     @Insert
     fun insert(qAnda: QuestionAnswer)
@@ -27,26 +31,25 @@ interface QuestionAnswerDao {
     @Transaction
     fun moveCardUp(key: Long) {
         var theCard = getCardById(key)
-        if (theCard == null) {
-            return
+        if (theCard != null) {
+            val oldID = theCard.uniqueId
+            theCard.uniqueId = 0
+            theCard.boxId++
+            insert(theCard)
+            deleteCardById(oldID)
         }
-        val oldID = theCard.uniqueId
-        theCard.uniqueId = 0
-        theCard.boxId++
-        insert(theCard)
-        deleteCardById(oldID)
     }
 
     @Transaction
-    fun moveCardBack(key: Long) {
+    fun moveCardBox1(key: Long) {
         var theCard = getCardById(key)
-        if (theCard == null) {
-            return
+        if (theCard != null) {
+            val oldID = theCard.uniqueId
+            theCard.uniqueId = 0
+            theCard.boxId = 1
+            insert(theCard)
+            deleteCardById(oldID)
         }
-        val oldID = theCard.uniqueId
-        theCard.uniqueId = 0
-        insert(theCard)
-        deleteCardById(oldID)
     }
 
     @Query("Select * from question_answer where uniqueId = :key")
@@ -68,5 +71,5 @@ interface QuestionAnswerDao {
     fun deleteCardById(key: Long)
 
     @Query("Delete from question_answer")
-    fun clear()
+    fun deleteAll()
 }

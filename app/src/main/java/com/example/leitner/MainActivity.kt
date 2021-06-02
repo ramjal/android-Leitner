@@ -9,12 +9,18 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.example.leitner.database.*
 import com.example.leitner.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private var coroutineJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + coroutineJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineScope.cancel()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -44,9 +55,16 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.action_addData -> {
+                insertTempCards()
+                return true
+            }
+            R.id.action_deleteData -> {
+                deleteCards()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
@@ -55,4 +73,36 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
             || super.onSupportNavigateUp()
     }
+
+    /**
+     * add temp data to database
+     */
+    private fun insertTempCards() {
+        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+        coroutineScope.launch {
+            insertTempCardsToDatabase(datasource)
+        }
+    }
+    private suspend fun insertTempCardsToDatabase(datasource: QuestionAnswerDao) {
+        return withContext(Dispatchers.IO) {
+            datasource.insertTempCards(_questions, _answers)
+        }
+    }
+
+
+    /**
+     * delete all the cards from database
+     */
+    private fun deleteCards() {
+        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+        coroutineScope.launch {
+            deleteCardsFromDatabase(datasource)
+        }
+    }
+    private suspend fun deleteCardsFromDatabase(datasource: QuestionAnswerDao) {
+        return withContext(Dispatchers.IO) {
+            datasource.deleteAll()
+        }
+    }
+
 }

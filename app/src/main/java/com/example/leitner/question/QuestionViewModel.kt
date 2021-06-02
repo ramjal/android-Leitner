@@ -1,16 +1,11 @@
 package com.example.leitner.question
 
-import android.app.Application
 import android.util.Log
-import android.view.View
-import android.widget.RadioGroup
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.leitner.database.QuestionAnswer
 import com.example.leitner.database.QuestionAnswerDao
-import com.example.leitner.database.Repos
 import kotlinx.coroutines.*
 
 class QuestionViewModel(val boxId: Int,
@@ -30,9 +25,6 @@ class QuestionViewModel(val boxId: Int,
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
-
-    // Temp repository
-    private var _repos = Repos()
 
     override fun onCleared() {
         super.onCleared()
@@ -71,20 +63,6 @@ class QuestionViewModel(val boxId: Int,
     }
 
     /**
-     * add temp data to database
-     */
-    private fun insertTempCards() {
-        uiScope.launch {
-            insertTempCardsToDatabase()
-        }
-    }
-    private suspend fun insertTempCardsToDatabase() {
-        return withContext(Dispatchers.IO) {
-            datasource.insertTempCards(_repos._questions, _repos._answers)
-        }
-    }
-
-    /**
      * called when a top box is clicked
      */
     fun onBoxClicked(id: Int) {
@@ -100,7 +78,5 @@ class QuestionViewModel(val boxId: Int,
     fun onCheckAnswerComplete() {
         _eventCheckAnswer.value = false
     }
-
-
 
 }

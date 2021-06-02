@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "question_answer")
 data class QuestionAnswer(
@@ -15,6 +16,8 @@ data class QuestionAnswer(
 
     var question: String = "",
 
-    var answer: String = ""
+    var answer: String = "",
+
+    val createdMilli: Long = System.currentTimeMillis()
 
 )
