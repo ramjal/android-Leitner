@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.leitner.database.*
 import com.example.leitner.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
@@ -56,11 +57,11 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_addData -> {
+            R.id.action_addTestData -> {
                 insertTempCards()
                 return true
             }
-            R.id.action_deleteData -> {
+            R.id.action_deleteAllData -> {
                 deleteCards()
                 return true
             }
@@ -73,6 +74,21 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
             || super.onSupportNavigateUp()
     }
+
+    /**
+     * add new card to database
+     */
+//    private fun addNewCard() {
+//        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+//        coroutineScope.launch {
+//            insertNewCardToDatabase(datasource)
+//        }
+//    }
+//    private suspend fun insertNewCardToDatabase(datasource: QuestionAnswerDao) {
+//        return withContext(Dispatchers.IO) {
+//            datasource.insertNewCard(_questions, _answers)
+//        }
+//    }
 
     /**
      * add temp data to database
@@ -88,7 +104,6 @@ class MainActivity : AppCompatActivity() {
             datasource.insertTempCards(_questions, _answers)
         }
     }
-
 
     /**
      * delete all the cards from database

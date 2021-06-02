@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">Leitner</string>
     <string name="action_settings">Settings</string>
-    <string name="action_add_data">Add Test Data</string>
+    <string name="action_add_test">Add Test Data</string>
     <string name="action_delete_data">Delete All Data</string>
+    <string name="action_add_card">Add New Card</string>
     <!-- Strings used for fragments for navigation -->
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>
+    <string name="new_card_fragment_label">New Card</string>
     <string name="check">Check Answer</string>
+    <string name="addCard">Add New Card</string>
+    <string name="editQuestionHint">Enter Question Here</string>
+    <string name="editAnswerHist">Enter Answer Here</string>
     <string name="okButton">OK</string>
     <string name="failedButton">Fail</string>
 

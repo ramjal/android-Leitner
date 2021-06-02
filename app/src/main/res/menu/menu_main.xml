@@ -3,14 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.leitner.MainActivity">
     <item
-        android:id="@+id/action_addData"
+        android:id="@+id/action_addTestData"
         android:orderInCategory="100"
-        android:title="@string/action_add_data"
+        android:title="@string/action_add_test"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_deleteData"
+        android:id="@+id/action_deleteAllData"
         android:orderInCategory="101"
         android:title="@string/action_delete_data"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_addNewCard"
+        android:orderInCategory="102"
+        android:title="@string/action_add_card"
         app:showAsAction="never" />
 
 </menu>

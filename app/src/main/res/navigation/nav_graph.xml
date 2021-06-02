@@ -21,6 +21,14 @@
             android:name="box_id"
             app:argType="integer"
             android:defaultValue="1"/>
+        <action
+            android:id="@+id/action_QuestionFragment_to_NewCardFragment"
+            app:destination="@id/NewCardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/NewCardFragment"/>
     </fragment>
     <fragment
         android:id="@+id/AnswerFragment"
@@ -37,5 +45,11 @@
         <argument
             android:name="answer_index"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/NewCardFragment"
+        android:name="com.example.leitner.newcard.NewCardFragment"
+        android:label="@string/new_card_fragment_label"
+        tools:layout="@layout/fragment_answer">
     </fragment>
 </navigation>
