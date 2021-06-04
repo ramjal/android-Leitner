@@ -7,26 +7,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.leitner.R
+import com.example.leitner.database.QuestionAnswerDatabase
+import com.example.leitner.databinding.FragmentNewCardBinding
+import com.example.leitner.databinding.FragmentQuestionBinding
+import com.example.leitner.question.QuestionViewModel
+import com.example.leitner.question.QuestionViewModelFactory
 
 class NewCardFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = NewCardFragment()
-    }
-
+    private var _binding: FragmentNewCardBinding? = null
     private lateinit var viewModel: NewCardViewModel
+    private lateinit var viewModelFactory: NewCardViewModelFactory
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.new_card_fragment, container, false)
-    }
+        val application = requireNotNull(this.activity).application
+        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+        viewModelFactory = NewCardViewModelFactory(datasource)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewCardViewModel::class.java)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(NewCardViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        _binding = FragmentNewCardBinding.inflate(inflater, container, false)
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        return binding.root
+    }
+    
 }

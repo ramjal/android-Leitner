@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:text="@{viewModel.questionAnswer.answer}"
-            android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
