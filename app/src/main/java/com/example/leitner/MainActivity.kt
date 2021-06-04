@@ -1,5 +1,6 @@
 package com.example.leitner
 
+import android.app.AlertDialog
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -109,9 +110,20 @@ class MainActivity : AppCompatActivity() {
      * delete all the cards from database
      */
     private fun deleteCards() {
-        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-        coroutineScope.launch {
-            deleteCardsFromDatabase(datasource)
+        val builder = AlertDialog.Builder(this)
+        with(builder) {
+            setTitle("Deletion Alert!")
+            setMessage("Do you want to delete all the cards?")
+            setPositiveButton("Yes") { dialog, which ->
+                val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
+                coroutineScope.launch {
+                    deleteCardsFromDatabase(datasource)
+                }
+            }
+            setNegativeButton("No") { dia, which ->
+                Toast.makeText(applicationContext, "Cancelled!", Toast.LENGTH_SHORT).show()
+            }
+            show()
         }
     }
     private suspend fun deleteCardsFromDatabase(datasource: QuestionAnswerDao) {
