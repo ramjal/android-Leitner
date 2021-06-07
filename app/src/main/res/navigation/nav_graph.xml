@@ -51,5 +51,13 @@
         android:name="com.example.leitner.newcard.NewCardFragment"
         android:label="@string/new_card_fragment_label"
         tools:layout="@layout/fragment_answer">
+        <argument
+            android:name="edit_add_type"
+            app:argType="string"
+            android:defaultValue="add" />
+        <argument
+            android:name="card_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

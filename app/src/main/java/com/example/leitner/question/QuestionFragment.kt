@@ -11,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
-import com.example.leitner.answer.AnswerFragmentArgs
-import com.example.leitner.answer.AnswerViewModelFactory
 import com.example.leitner.database.QuestionAnswerDatabase
-import com.example.leitner.databinding.FragmentAnswerBinding
 import com.example.leitner.databinding.FragmentQuestionBinding
 
 /**
@@ -22,7 +19,7 @@ import com.example.leitner.databinding.FragmentQuestionBinding
  */
 class QuestionFragment : Fragment() {
 
-    private val questionFragmentArgs by navArgs<QuestionFragmentArgs>()
+    private val myFragmentArgs by navArgs<QuestionFragmentArgs>()
 
     private var _binding: FragmentQuestionBinding? = null
     private lateinit var viewModel: QuestionViewModel
@@ -38,7 +35,7 @@ class QuestionFragment : Fragment() {
     ): View? {
         val application = requireNotNull(this.activity).application
         val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-        viewModelFactory = QuestionViewModelFactory(questionFragmentArgs.boxId, datasource)
+        viewModelFactory = QuestionViewModelFactory(myFragmentArgs.boxId, datasource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(QuestionViewModel::class.java)
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
@@ -58,16 +55,13 @@ class QuestionFragment : Fragment() {
             }
         })
 
-        selectBox(questionFragmentArgs.boxId)
+        selectBox(myFragmentArgs.boxId)
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_addTestData -> {
                 viewModel.insertTempCards()
@@ -78,7 +72,21 @@ class QuestionFragment : Fragment() {
                 return true
             }
             R.id.action_addNewCard -> {
-                findNavController().navigate(QuestionFragmentDirections.actionQuestionFragmentToNewCardFragment())
+                findNavController().navigate(
+                    QuestionFragmentDirections.
+                    actionQuestionFragmentToNewCardFragment(editAddType = "add"))
+                return true
+            }
+            R.id.action_editCard -> {
+                val id = viewModel.questionAnswer.value?.uniqueId
+                if (id != null) {
+                    findNavController().navigate(
+                        QuestionFragmentDirections.actionQuestionFragmentToNewCardFragment(
+                            editAddType = "edit",
+                            cardId = id
+                        )
+                    )
+                }
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

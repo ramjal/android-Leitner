@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".newcard.NewCardFragment">
 
         <EditText
             android:id="@+id/edittext_question"
@@ -19,35 +20,34 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:text="@={viewModel.newQuestion}"
-            android:textSize="24sp"
+            android:textSize="32sp"
+            android:textStyle="bold"
             android:hint="@string/editQuestionHint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.2" />
 
         <EditText
             android:id="@+id/edittext_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="32dp"
+            android:hint="@string/editAnswerHist"
             android:text="@={viewModel.newAnswer}"
             android:textSize="24sp"
-            android:hint="@string/editAnswerHist"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
-
+            app:layout_constraintTop_toBottomOf="@+id/edittext_question" />
         <Button
             android:id="@+id/button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="@{()-> viewModel.onAddNewCard()}"
             android:text="@string/addCard"
+            android:onClick="@{()-> viewModel.onAddNewCard()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

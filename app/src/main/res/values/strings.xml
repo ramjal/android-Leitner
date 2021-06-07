@@ -4,6 +4,8 @@
     <string name="action_add_test">Add Test Data</string>
     <string name="action_delete_data">Delete All Data</string>
     <string name="action_add_card">Add New Card</string>
+    <string name="action_edit_card">Edit Card</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>
