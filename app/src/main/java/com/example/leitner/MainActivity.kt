@@ -53,83 +53,28 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_addTestData -> {
-                insertTempCards()
-                return true
-            }
-            R.id.action_deleteAllData -> {
-                deleteCards()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
+
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        when (item.itemId) {
+//            R.id.action_addTestData -> {
+//                insertTempCards()
+//                return true
+//            }
+//            R.id.action_deleteAllData -> {
+//                deleteCards()
+//                return true
+//            }
+//            else -> return super.onOptionsItemSelected(item)
+//        }
+//    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
             || super.onSupportNavigateUp()
-    }
-
-    /**
-     * add new card to database
-     */
-//    private fun addNewCard() {
-//        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-//        coroutineScope.launch {
-//            insertNewCardToDatabase(datasource)
-//        }
-//    }
-//    private suspend fun insertNewCardToDatabase(datasource: QuestionAnswerDao) {
-//        return withContext(Dispatchers.IO) {
-//            datasource.insertNewCard(_questions, _answers)
-//        }
-//    }
-
-    /**
-     * add temp data to database
-     */
-    private fun insertTempCards() {
-        val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-        coroutineScope.launch {
-            insertTempCardsToDatabase(datasource)
-        }
-    }
-    private suspend fun insertTempCardsToDatabase(datasource: QuestionAnswerDao) {
-        return withContext(Dispatchers.IO) {
-            datasource.insertTempCards(_questions, _answers)
-        }
-    }
-
-    /**
-     * delete all the cards from database
-     */
-    private fun deleteCards() {
-        val builder = AlertDialog.Builder(this)
-        with(builder) {
-            setTitle("Deletion Alert!")
-            setMessage("Do you want to delete all the cards?")
-            setPositiveButton("Yes") { dialog, which ->
-                val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
-                coroutineScope.launch {
-                    deleteCardsFromDatabase(datasource)
-                }
-            }
-            setNegativeButton("No") { dia, which ->
-                Toast.makeText(applicationContext, "Cancelled!", Toast.LENGTH_SHORT).show()
-            }
-            show()
-        }
-    }
-    private suspend fun deleteCardsFromDatabase(datasource: QuestionAnswerDao) {
-        return withContext(Dispatchers.IO) {
-            datasource.deleteAll()
-        }
     }
 
 }

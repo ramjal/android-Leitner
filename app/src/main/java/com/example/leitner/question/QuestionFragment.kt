@@ -1,11 +1,11 @@
 package com.example.leitner.question
 
+import android.app.AlertDialog
+import android.app.Application
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,7 +36,6 @@ class QuestionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val application = requireNotNull(this.activity).application
         val datasource = QuestionAnswerDatabase.getInstance(application).questionAnswerDao
         viewModelFactory = QuestionViewModelFactory(questionFragmentArgs.boxId, datasource)
@@ -61,9 +60,15 @@ class QuestionFragment : Fragment() {
 
         selectBox(questionFragmentArgs.boxId)
 
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        //val item = menu.findItem(R.id.action_addTestData)
+        //item.isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,11 +76,38 @@ class QuestionFragment : Fragment() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
+            R.id.action_addTestData -> {
+                viewModel.insertTempCards()
+                return true
+            }
+            R.id.action_deleteAllData -> {
+                deleteCards()
+                return true
+            }
             R.id.action_addNewCard -> {
                 findNavController().navigate(QuestionFragmentDirections.actionQuestionFragmentToNewCardFragment())
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    /**
+     * delete all the cards from database
+     */
+    private fun deleteCards() {
+        val builder = AlertDialog.Builder(requireActivity())
+        with(builder) {
+            setTitle("Deletion Alert!")
+            setMessage("Do you want to delete all the cards?")
+            setPositiveButton("Yes") { dialog, which ->
+                viewModel.deleteCards()
+                Toast.makeText(requireActivity(), "Deleted!", Toast.LENGTH_SHORT).show()
+            }
+            setNegativeButton("No") { dia, which ->
+                Toast.makeText(requireActivity(), "Cancelled!", Toast.LENGTH_SHORT).show()
+            }
+            show()
         }
     }
 

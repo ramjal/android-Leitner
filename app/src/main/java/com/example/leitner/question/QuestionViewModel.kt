@@ -1,11 +1,13 @@
 package com.example.leitner.question
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.leitner.database.QuestionAnswer
-import com.example.leitner.database.QuestionAnswerDao
+import com.example.leitner.database.*
 import kotlinx.coroutines.*
 
 class QuestionViewModel(val boxId: Int,
@@ -63,7 +65,7 @@ class QuestionViewModel(val boxId: Int,
     }
 
     /**
-     * called when a top box is clicked
+     * called when one or the 5 top boxes is clicked
      */
     fun onBoxClicked(id: Int) {
         Log.d("QuestionViewModel", "Id: ${id}")
@@ -71,12 +73,42 @@ class QuestionViewModel(val boxId: Int,
         getCurrentQuestion(id)
     }
 
+    /**
+     * Check answer button events
+     */
     fun onCheckAnswer() {
         _eventCheckAnswer.value = true
     }
-
     fun onCheckAnswerComplete() {
         _eventCheckAnswer.value = false
+    }
+
+    /**
+     * add temp data to database
+     */
+    fun insertTempCards() {
+        uiScope.launch {
+            insertTempCardsToDatabase()
+        }
+    }
+    private suspend fun insertTempCardsToDatabase() {
+        return withContext(Dispatchers.IO) {
+            datasource.insertTempCards(_questions, _answers)
+        }
+    }
+
+    /**
+     * delete all the cards from database
+     */
+    fun deleteCards() {
+        uiScope.launch {
+            deleteCardsFromDatabase()
+        }
+    }
+    private suspend fun deleteCardsFromDatabase() {
+        return withContext(Dispatchers.IO) {
+            datasource.deleteAll()
+        }
     }
 
 }
