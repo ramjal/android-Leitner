@@ -13,15 +13,16 @@
         android:title="@string/action_delete_data"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_addNewCard"
-        android:orderInCategory="102"
-        android:title="@string/action_add_card"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_editCard"
+        android:orderInCategory="102"
         android:icon="@drawable/ic_edit"
-        android:orderInCategory="103"
         android:title="@string/action_edit_card"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_addNewCard"
+        android:orderInCategory="103"
+        android:icon="@drawable/ic_add"
+        android:title="@string/action_add_card"
         app:showAsAction="ifRoom" />
 
 </menu>

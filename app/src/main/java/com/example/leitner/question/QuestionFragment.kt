@@ -83,7 +83,8 @@ class QuestionFragment : Fragment() {
                     findNavController().navigate(
                         QuestionFragmentDirections.actionQuestionFragmentToNewCardFragment(
                             editAddType = "edit",
-                            cardId = id
+                            cardId = id,
+                            title = "Edit Card"
                         )
                     )
                 }

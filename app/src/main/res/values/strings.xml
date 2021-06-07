@@ -11,7 +11,7 @@
     <string name="answer_fragment_label">Answer</string>
     <string name="new_card_fragment_label">New Card</string>
     <string name="check">Check Answer</string>
-    <string name="addCard">Add New Card</string>
+    <string name="addCardButton">Add New Card</string>
     <string name="editQuestionHint">Enter Question Here</string>
     <string name="editAnswerHist">Enter Answer Here</string>
     <string name="okButton">OK</string>
