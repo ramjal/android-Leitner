@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.leitner.R
@@ -34,8 +35,19 @@ class NewCardFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        menu.clear()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
     
 }

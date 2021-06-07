@@ -59,16 +59,9 @@ class QuestionFragment : Fragment() {
         })
 
         selectBox(questionFragmentArgs.boxId)
-
         setHasOptionsMenu(true)
 
         return binding.root
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu){
-        super.onPrepareOptionsMenu(menu)
-        //val item = menu.findItem(R.id.action_addTestData)
-        //item.isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

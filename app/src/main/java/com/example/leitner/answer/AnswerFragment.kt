@@ -3,6 +3,7 @@ package com.example.leitner.answer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -55,7 +56,14 @@ class AnswerFragment : Fragment() {
             }
         })
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        menu.clear()
     }
 
     override fun onDestroyView() {
