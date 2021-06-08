@@ -11,15 +11,19 @@ import com.example.leitner.database.QuestionAnswer
 import com.example.leitner.database.QuestionAnswerDao
 import kotlinx.coroutines.*
 
-class NewCardViewModel(
-    val datasource: QuestionAnswerDao,
-    val addEditType: String, val cardId: Long
-) : ViewModel() {
+class NewCardViewModel(val datasource: QuestionAnswerDao,
+                       val addEditType: String, val cardId: Long) : ViewModel() {
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    private val _goToQuestion = MutableLiveData<Boolean>()
+    val goToQuestion: LiveData<Boolean>
+        get() = _goToQuestion
+
     val newQuestion = MutableLiveData<String>()
     val newAnswer = MutableLiveData<String>()
+    val boxId = MutableLiveData<Int>()
 
     init {
         if (addEditType == "edit") {
@@ -28,18 +32,24 @@ class NewCardViewModel(
     }
 
     /**
-     * called when button_add is clicked
+     * called when button add or edit is clicked
      */
-    fun onAddNewCard() {
+    fun onAddEditCard() {
         if (addEditType == "edit") {
             uiScope.launch {
                 updateCardDatabase(cardId)
+                _goToQuestion.value = true
             }
         } else {
             uiScope.launch {
                 addNewCardDatabase()
+                _goToQuestion.value = true
             }
         }
+    }
+
+    fun onGoToQuestionComplete() {
+        _goToQuestion.value = false
     }
 
     private fun getValues() {
@@ -48,6 +58,7 @@ class NewCardViewModel(
             questionAnswer?.let {
                 newQuestion.value = it.question
                 newAnswer.value = it.answer
+                boxId.value = it.boxId
             }
         }
     }

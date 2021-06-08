@@ -22,7 +22,7 @@
             app:argType="integer"
             android:defaultValue="1"/>
         <action
-            android:id="@+id/action_QuestionFragment_to_NewCardFragment"
+            android:id="@+id/action_Question_to_NewCard"
             app:destination="@id/NewCardFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -63,5 +63,12 @@
             android:name="title"
             app:argType="string"
             android:defaultValue="Add New Card"/>
+        <action
+            android:id="@+id/action_NewCard_to_Question"
+            app:destination="@id/QuestionFragment" />
+        <argument
+            android:name="box_id"
+            app:argType="integer"
+            android:defaultValue="1"/>
     </fragment>
 </navigation>

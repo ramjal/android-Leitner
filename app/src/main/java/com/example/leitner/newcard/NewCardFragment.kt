@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
+import com.example.leitner.answer.AnswerFragmentDirections
 import com.example.leitner.database.QuestionAnswerDatabase
 import com.example.leitner.databinding.FragmentNewCardBinding
 
@@ -40,11 +44,21 @@ class NewCardFragment : Fragment() {
         setHasOptionsMenu(true)
 
         //to be used in the click event
-        //binding.buttonAdd.tag = myFragmentArgs.editAddType
-        //val carId =  myFragmentArgs.cardId
         if (myFragmentArgs.editAddType == "edit") {
             binding.buttonAdd.setText("Edit Card")
         }
+
+        // Navigates back to question when button is pressed
+        viewModel.goToQuestion.observe(viewLifecycleOwner, Observer { goToQuestion ->
+            if (goToQuestion) {
+                val bId = viewModel.boxId.value ?: 1
+                findNavController().navigate(NewCardFragmentDirections.actionNewCardToQuestion(boxId = bId))
+                viewModel.onGoToQuestionComplete()
+                if (myFragmentArgs.editAddType == "add") {
+                    Toast.makeText(application, "Added New Card", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
         return binding.root
     }

@@ -74,18 +74,15 @@ class QuestionFragment : Fragment() {
             R.id.action_addNewCard -> {
                 findNavController().navigate(
                     QuestionFragmentDirections.
-                    actionQuestionFragmentToNewCardFragment(editAddType = "add"))
+                    actionQuestionToNewCard(editAddType = "add"))
                 return true
             }
             R.id.action_editCard -> {
                 val id = viewModel.questionAnswer.value?.uniqueId
                 if (id != null) {
                     findNavController().navigate(
-                        QuestionFragmentDirections.actionQuestionFragmentToNewCardFragment(
-                            editAddType = "edit",
-                            cardId = id,
-                            title = "Edit Card"
-                        )
+                        QuestionFragmentDirections.actionQuestionToNewCard(
+                            editAddType = "edit", cardId = id, title = "Edit Card")
                     )
                 }
                 return true
