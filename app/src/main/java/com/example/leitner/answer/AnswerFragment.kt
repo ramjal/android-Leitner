@@ -1,11 +1,8 @@
 package com.example.leitner.answer
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -63,7 +60,22 @@ class AnswerFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
-        menu.clear()
+        menu.removeItem(R.id.action_addNewCard)
+        menu.removeItem(R.id.action_addTestData)
+        menu.removeItem(R.id.action_deleteAllData)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_editCard -> {
+                findNavController().navigate(
+                    AnswerFragmentDirections.actionAnswerToNewCard(
+                        editAddType = "edit", cardId = answerFragmentArgs.answerIndex, title = "Edit Card")
+                )
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onDestroyView() {

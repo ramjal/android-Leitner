@@ -28,6 +28,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
             app:popUpTo="@id/NewCardFragment"/>
     </fragment>
     <fragment
@@ -45,6 +46,13 @@
         <argument
             android:name="answer_index"
             app:argType="long" />
+        <action
+            android:id="@+id/action_Answer_to_NewCard"
+            app:destination="@id/NewCardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/NewCardFragment" />
     </fragment>
     <fragment
         android:id="@+id/NewCardFragment"
@@ -63,12 +71,16 @@
             android:name="title"
             app:argType="string"
             android:defaultValue="Add New Card"/>
-        <action
-            android:id="@+id/action_NewCard_to_Question"
-            app:destination="@id/QuestionFragment" />
         <argument
             android:name="box_id"
             app:argType="integer"
             android:defaultValue="1"/>
+        <action
+            android:id="@+id/action_NewCard_to_Question"
+            app:destination="@id/QuestionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/QuestionFragment" />
     </fragment>
 </navigation>
