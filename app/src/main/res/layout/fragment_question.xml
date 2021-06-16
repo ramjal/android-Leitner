@@ -56,6 +56,37 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+            app:layout_constraintStart_toStartOf="@+id/radioGroup"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup">
+
+            <TextView
+                android:id="@+id/circle1"
+                style="@style/circleBulletStyle" />
+
+            <TextView
+                android:id="@+id/circle2"
+                style="@style/circleBulletStyle"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/circle3"
+                style="@style/circleBulletStyle"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/circle4"
+                style="@style/circleBulletStyle" />
+
+            <TextView
+                android:id="@+id/circle5"
+                style="@style/circleBulletStyle" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textview_question"
             android:layout_width="match_parent"
