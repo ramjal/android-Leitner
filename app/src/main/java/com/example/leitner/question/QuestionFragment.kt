@@ -2,6 +2,7 @@ package com.example.leitner.question
 
 import android.app.AlertDialog
 import android.app.Application
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast

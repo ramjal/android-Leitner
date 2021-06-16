@@ -2,6 +2,7 @@ package com.example.leitner.question
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.opengl.Visibility
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -28,6 +29,8 @@ class QuestionViewModel(val boxId: Int,
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
 
+    val bulletVisibility = MutableLiveData<Boolean>()
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
@@ -38,6 +41,7 @@ class QuestionViewModel(val boxId: Int,
         //insertTempCards()
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
+        bulletVisibility.value = true
     }
 
     private fun getTotalCount(boxId: Int) {
@@ -68,9 +72,21 @@ class QuestionViewModel(val boxId: Int,
      * called when one or the 5 top boxes is clicked
      */
     fun onBoxClicked(id: Int) {
-        Log.d("QuestionViewModel", "Id: ${id}")
+        //Log.d("QuestionViewModel", "Id: ${id}")
         getTotalCount(id)
         getCurrentQuestion(id)
+    }
+
+    fun setVisibility(id: Int) : Boolean {
+        //Log.d("QuestionViewModel", "Id: ${id}")
+        return when (id) {
+            1 -> true
+            2 -> false
+            3 -> true
+            4 -> false
+            else -> true
+        }
+
     }
 
     /**
