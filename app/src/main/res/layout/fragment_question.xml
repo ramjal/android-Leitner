@@ -136,6 +136,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_question" />
 
+        <TextView
+            android:id="@+id/textview_viewable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/viewable_string_format(viewModel.viewableCount)}"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_id" />
 
         <TextView
             android:id="@+id/textview_total"
@@ -148,7 +160,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_id" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_viewable" />
 
         <TextView
             android:id="@+id/textview_box_id"

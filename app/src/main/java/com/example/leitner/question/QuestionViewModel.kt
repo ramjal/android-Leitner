@@ -12,18 +12,22 @@ import com.example.leitner.database.*
 import kotlinx.coroutines.*
 
 class QuestionViewModel(val boxId: Int,
-                        val datasource: QuestionAnswerDao) : ViewModel()  {
+                        val datasource: QuestionAnswerDao) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var _questionAnswer = MutableLiveData<QuestionAnswer>()
-    val questionAnswer : LiveData<QuestionAnswer>
+    val questionAnswer: LiveData<QuestionAnswer>
         get() = _questionAnswer
 
     private var _totalCount = MutableLiveData<Int>()
-    val totalCount : LiveData<Int>
+    val totalCount: LiveData<Int>
         get() = _totalCount
+
+    private var _viewableCount = MutableLiveData<Int>()
+    val viewableCount: LiveData<Int>
+        get() = _viewableCount
 
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>
@@ -38,7 +42,7 @@ class QuestionViewModel(val boxId: Int,
 
     init {
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
-        //insertTempCards()
+        getViewableCount(boxId)
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
         bulletVisibility.value = true
@@ -68,16 +72,40 @@ class QuestionViewModel(val boxId: Int,
         }
     }
 
+    private fun getViewableCount(boxId: Int) {
+        uiScope.launch {
+            _viewableCount.value = getViewableCountFromDatabase(boxId, getMiliForBox(boxId))
+        }
+    }
+    private suspend fun getViewableCountFromDatabase(boxId: Int, timeMilli: Long): Int {
+        return withContext(Dispatchers.IO) {
+            var count = datasource.totalCardsReadyToView(boxId, timeMilli)
+            count
+        }
+    }
+
+    //Best spaced repetition time intervals: 1 day, 7 days, 16 days, 35 days
+    private fun getMiliForBox(boxId: Int): Long {
+        var timeMilli: Long = 1 * 24 * 3600 * 1000
+        when (boxId) {
+            2 -> timeMilli = 7 * timeMilli
+            3 -> timeMilli = 16 * timeMilli
+            4 -> timeMilli = 35 * timeMilli
+        }
+        return System.currentTimeMillis() - timeMilli
+    }
+
     /**
      * called when one or the 5 top boxes is clicked
      */
-    fun onBoxClicked(id: Int) {
+    fun onBoxClicked(boxId: Int) {
         //Log.d("QuestionViewModel", "Id: ${id}")
-        getTotalCount(id)
-        getCurrentQuestion(id)
+        getViewableCount(boxId)
+        getTotalCount(boxId)
+        getCurrentQuestion(boxId)
     }
 
-    fun setVisibility(id: Int) : Boolean {
+    fun setVisibility(id: Int): Boolean {
         //Log.d("QuestionViewModel", "Id: ${id}")
         return when (id) {
             1 -> true
@@ -86,7 +114,6 @@ class QuestionViewModel(val boxId: Int,
             4 -> false
             else -> true
         }
-
     }
 
     /**
@@ -95,6 +122,7 @@ class QuestionViewModel(val boxId: Int,
     fun onCheckAnswer() {
         _eventCheckAnswer.value = true
     }
+
     fun onCheckAnswerComplete() {
         _eventCheckAnswer.value = false
     }
@@ -121,6 +149,7 @@ class QuestionViewModel(val boxId: Int,
             deleteCardsFromDatabase()
         }
     }
+
     private suspend fun deleteCardsFromDatabase() {
         return withContext(Dispatchers.IO) {
             datasource.deleteAll()

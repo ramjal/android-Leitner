@@ -55,6 +55,9 @@ interface QuestionAnswerDao {
     @Query("Select * from question_answer where uniqueId = :key")
     fun getCardById(key: Long) : QuestionAnswer?
 
+    @Query("Select count(uniqueId) from question_answer where boxId = :boxId and createdMilli < :timeMilli")
+    fun totalCardsReadyToView(boxId: Int, timeMilli: Long) : Int
+
     @Query("Select * from question_answer where boxId = :boxId order by uniqueId limit 1")
     fun getFirstCardInBox(boxId: Int) : QuestionAnswer
 
@@ -67,7 +70,7 @@ interface QuestionAnswerDao {
     @Query("select count(uniqueId) from question_answer where boxId = :boxId")
     fun getCountByBox(boxId: Int): Int
 
-    @Query("Delete from question_answer  where uniqueId = :key")
+    @Query("Delete from question_answer where uniqueId = :key")
     fun deleteCardById(key: Long)
 
     @Query("Delete from question_answer")
