@@ -35,6 +35,7 @@ interface QuestionAnswerDao {
             val oldID = theCard.uniqueId
             theCard.uniqueId = 0
             theCard.boxId++
+            theCard.createdMilli = System.currentTimeMillis()
             insert(theCard)
             deleteCardById(oldID)
         }
