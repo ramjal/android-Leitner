@@ -25,9 +25,9 @@ class QuestionViewModel(val boxId: Int,
     val totalCount: LiveData<Int>
         get() = _totalCount
 
-    private var _viewableCount = MutableLiveData<Int>()
-    val viewableCount: LiveData<Int>
-        get() = _viewableCount
+    private var _requiredViewingCount = MutableLiveData<Int>()
+    val requiredViewingCount: LiveData<Int>
+        get() = _requiredViewingCount
 
     private val _eventCheckAnswer = MutableLiveData<Boolean>()
     val eventCheckAnswer: LiveData<Boolean>

@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{@string/viewable_string_format(viewModel.viewableCount)}"
+            android:text="@{@string/viewable_string_format(viewModel.requiredViewingCount)}"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
