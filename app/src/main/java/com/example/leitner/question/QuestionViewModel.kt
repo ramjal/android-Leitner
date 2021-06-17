@@ -74,12 +74,12 @@ class QuestionViewModel(val boxId: Int,
 
     private fun getRequiredViewingCount(boxId: Int) {
         uiScope.launch {
-            _requiredViewingCount.value = getRequiredViewingCountFromDatabase(boxId, getMiliForBox(boxId))
+            _requiredViewingCount.value = getRequiredViewingCountFromDatabase(boxId)
         }
     }
-    private suspend fun getRequiredViewingCountFromDatabase(boxId: Int, timeMilli: Long): Int {
+    private suspend fun getRequiredViewingCountFromDatabase(boxId: Int): Int {
         return withContext(Dispatchers.IO) {
-            var count = datasource.cardCountsRequiredViewing(boxId, timeMilli)
+            var count = datasource.cardCountsRequiredViewing(boxId, getMilliForBox(boxId))
             count
         }
     }
@@ -89,13 +89,13 @@ class QuestionViewModel(val boxId: Int,
             val list = mutableListOf<Boolean>()
             list.add(false) // 0 // zero index will be ignored in the fragment layout. It starts from 1 to mach the bullet Id 1 to 5
             for (i in 1..5)
-                list.add(getRequiredViewingCountFromDatabase(i, getMiliForBox(i)) > 0)
+                list.add(getRequiredViewingCountFromDatabase(i) > 0)
             bulletFlags.value = list
         }
     }
 
     //Best spaced repetition time intervals: 1 day, 7 days, 16 days, 35 days
-    private fun getMiliForBox(boxId: Int): Long {
+    private fun getMilliForBox(boxId: Int): Long {
         var timeMilli: Long = 24 * 3600 * 1000 // 1 day
         when (boxId) {
             2 -> timeMilli = 7 * timeMilli
