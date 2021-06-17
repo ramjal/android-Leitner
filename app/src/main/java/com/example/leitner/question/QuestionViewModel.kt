@@ -17,15 +17,15 @@ class QuestionViewModel(val boxId: Int,
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _questionAnswer = MutableLiveData<QuestionAnswer>()
+    private val _questionAnswer = MutableLiveData<QuestionAnswer>()
     val questionAnswer: LiveData<QuestionAnswer>
         get() = _questionAnswer
 
-    private var _totalCount = MutableLiveData<Int>()
+    private val _totalCount = MutableLiveData<Int>()
     val totalCount: LiveData<Int>
         get() = _totalCount
 
-    private var _requiredViewingCount = MutableLiveData<Int>()
+    private val _requiredViewingCount = MutableLiveData<Int>()
     val requiredViewingCount: LiveData<Int>
         get() = _requiredViewingCount
 
@@ -33,7 +33,9 @@ class QuestionViewModel(val boxId: Int,
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
 
-    var bulletFlags = MutableLiveData<MutableList<Boolean>>()
+    private var _bulletFlags = MutableLiveData<MutableList<Boolean>>()
+    val bulletFlags: LiveData<MutableList<Boolean>>
+        get() = _bulletFlags
 
     override fun onCleared() {
         super.onCleared()
@@ -44,7 +46,7 @@ class QuestionViewModel(val boxId: Int,
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
         getRequiredViewingCount(boxId)
         getTotalCount(boxId)
-        getCurrentQuestion(boxId)
+        getFirstViewableQuestion(boxId)
         getRequiredViewingAllBoxes()
     }
 
@@ -60,14 +62,14 @@ class QuestionViewModel(val boxId: Int,
         }
     }
 
-    private fun getCurrentQuestion(boxId: Int) {
+    private fun getFirstViewableQuestion(boxId: Int) {
         uiScope.launch {
             _questionAnswer.value = getFirstQuestionFromDatabase(boxId)
         }
     }
     private suspend fun getFirstQuestionFromDatabase(boxId: Int): QuestionAnswer? {
         return withContext(Dispatchers.IO) {
-            var card = datasource.getFirstCardInBox(boxId)
+            var card = datasource.getFirstViewableCardInBox(boxId, getMilliForBox(boxId))
             card
         }
     }
@@ -90,7 +92,7 @@ class QuestionViewModel(val boxId: Int,
             list.add(false) // 0 // zero index will be ignored in the fragment layout. It starts from 1 to mach the bullet Id 1 to 5
             for (i in 1..5)
                 list.add(getRequiredViewingCountFromDatabase(i) > 0)
-            bulletFlags.value = list
+            _bulletFlags.value = list
         }
     }
 
@@ -112,7 +114,7 @@ class QuestionViewModel(val boxId: Int,
         //Log.d("QuestionViewModel", "Id: ${id}")
         getRequiredViewingCount(boxId)
         getTotalCount(boxId)
-        getCurrentQuestion(boxId)
+        getFirstViewableQuestion(boxId)
     }
 
     /**

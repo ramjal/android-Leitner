@@ -60,8 +60,8 @@ interface QuestionAnswerDao {
     @Query("Select count(uniqueId) from question_answer where boxId = :boxId and createdMilli < :timeMilli")
     fun cardCountsRequiredViewing(boxId: Int, timeMilli: Long) : Int
 
-    @Query("Select * from question_answer where boxId = :boxId order by uniqueId limit 1")
-    fun getFirstCardInBox(boxId: Int) : QuestionAnswer
+    @Query("Select * from question_answer where boxId = :boxId and createdMilli < :timeMilli order by uniqueId limit 1")
+    fun getFirstViewableCardInBox(boxId: Int, timeMilli: Long) : QuestionAnswer
 
     @Query("Select * from question_answer")
     fun getAllRows() : LiveData<List<QuestionAnswer>>
