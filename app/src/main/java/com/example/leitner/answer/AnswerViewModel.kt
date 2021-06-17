@@ -40,7 +40,7 @@ class AnswerViewModel(val cardIndex: Long,
     }
 
     fun onWrong() {
-        moveCardBox1(_cardKey)
+        moveCardToBox1(_cardKey)
         _gotoNexWord.value = true
     }
 
@@ -74,13 +74,13 @@ class AnswerViewModel(val cardIndex: Long,
         }
     }
 
-    private fun moveCardBox1(key: Long) {
+    private fun moveCardToBox1(key: Long) {
         uiScope.launch {
-            moveCardBox1Database(key)
+            moveCardToBox1Database(key)
         }
     }
 
-    private suspend fun moveCardBox1Database(key: Long) {
+    private suspend fun moveCardToBox1Database(key: Long) {
         withContext(Dispatchers.IO) {
             datasource.moveCardToBox1(key)
         }

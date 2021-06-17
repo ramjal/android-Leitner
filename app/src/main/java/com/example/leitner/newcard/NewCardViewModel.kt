@@ -74,6 +74,7 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
                 question = newQuestion.value.toString(),
                 answer = newAnswer.value.toString()
             )
+            Log.d("NewCardViewModel", questionAnswer.createdMilli.toString())
             datasource.insert(questionAnswer)
         }
     }

@@ -18,6 +18,6 @@ data class QuestionAnswer(
 
     var answer: String = "",
 
-    val createdMilli: Long = System.currentTimeMillis()
+    var createdMilli: Long = System.currentTimeMillis()
 
 )
