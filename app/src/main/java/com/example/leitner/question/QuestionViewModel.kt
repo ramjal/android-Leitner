@@ -33,7 +33,7 @@ class QuestionViewModel(val boxId: Int,
     val eventCheckAnswer: LiveData<Boolean>
         get() = _eventCheckAnswer
 
-    val bulletVisibility = MutableLiveData<Boolean>()
+    var bulletFlags = MutableLiveData<MutableList<Boolean>>()
 
     override fun onCleared() {
         super.onCleared()
@@ -45,7 +45,7 @@ class QuestionViewModel(val boxId: Int,
         getRequiredViewingCount(boxId)
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
-        bulletVisibility.value = true
+        getRequiredViewingAllBoxes()
     }
 
     private fun getTotalCount(boxId: Int) {
@@ -74,13 +74,23 @@ class QuestionViewModel(val boxId: Int,
 
     private fun getRequiredViewingCount(boxId: Int) {
         uiScope.launch {
-            _viewableCount.value = getRequiredViewingCountFromDatabase(boxId, getMiliForBox(boxId))
+            _requiredViewingCount.value = getRequiredViewingCountFromDatabase(boxId, getMiliForBox(boxId))
         }
     }
     private suspend fun getRequiredViewingCountFromDatabase(boxId: Int, timeMilli: Long): Int {
         return withContext(Dispatchers.IO) {
             var count = datasource.cardCountsRequiredViewing(boxId, timeMilli)
             count
+        }
+    }
+
+    private fun getRequiredViewingAllBoxes() {
+        uiScope.launch {
+            val list = mutableListOf<Boolean>()
+            list.add(false) // 0 // zero index will be ignored in the fragment layout. It starts from 1 to mach the bullet Id 1 to 5
+            for (i in 1..5)
+                list.add(getRequiredViewingCountFromDatabase(i, getMiliForBox(i)) > 0)
+            bulletFlags.value = list
         }
     }
 
@@ -103,17 +113,6 @@ class QuestionViewModel(val boxId: Int,
         getRequiredViewingCount(boxId)
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
-    }
-
-    fun setVisibility(id: Int): Boolean {
-        //Log.d("QuestionViewModel", "Id: ${id}")
-        return when (id) {
-            1 -> true
-            2 -> false
-            3 -> true
-            4 -> false
-            else -> true
-        }
     }
 
     /**

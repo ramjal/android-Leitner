@@ -65,36 +65,30 @@
             app:layout_constraintStart_toStartOf="@+id/radioGroup"
             app:layout_constraintTop_toTopOf="@+id/radioGroup">
 
-<!--            android:visibility="@{(id)-> viewModel.setVisibility(1)}"-->
-<!--            android:visibility="@{viewModel.bulletVisibility ? View.VISIBLE : View.INVISIBLE}"-->
-
             <TextView
                 android:id="@+id/circle1"
                 style="@style/circleBulletStyle"
-                android:visibility="@{viewModel.setVisibility(1) ? View.VISIBLE : View.INVISIBLE}"
-                />
+                android:visibility="@{viewModel.bulletFlags[1] ? View.VISIBLE : View.INVISIBLE}" />
 
             <TextView
                 android:id="@+id/circle2"
                 style="@style/circleBulletStyle"
-                android:visibility="@{viewModel.setVisibility(2) ? View.VISIBLE : View.INVISIBLE}"
-                />
+                android:visibility="@{viewModel.bulletFlags[2] ? View.VISIBLE : View.INVISIBLE}" />
 
             <TextView
                 android:id="@+id/circle3"
                 style="@style/circleBulletStyle"
-                android:visibility="@{viewModel.setVisibility(3) ? View.VISIBLE : View.INVISIBLE}"
-                />
+                android:visibility="@{viewModel.bulletFlags[3] ? View.VISIBLE : View.INVISIBLE}" />
 
             <TextView
                 android:id="@+id/circle4"
                 style="@style/circleBulletStyle"
-                android:visibility="@{viewModel.setVisibility(4) ? View.VISIBLE : View.INVISIBLE}" />
+                android:visibility="@{viewModel.bulletFlags[4] ? View.VISIBLE : View.INVISIBLE}" />
 
             <TextView
                 android:id="@+id/circle5"
                 style="@style/circleBulletStyle"
-                android:visibility="@{viewModel.setVisibility(5) ? View.VISIBLE : View.INVISIBLE}" />
+                android:visibility="@{viewModel.bulletFlags[5] ? View.VISIBLE : View.INVISIBLE}" />
         </LinearLayout>
 
         <TextView
