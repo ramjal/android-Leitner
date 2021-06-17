@@ -42,7 +42,7 @@ class QuestionViewModel(val boxId: Int,
 
     init {
         //Log.i("QuestionViewModel", "_currIndex: ${_currIndex.value}")
-        getViewableCount(boxId)
+        getRequiredViewingCount(boxId)
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
         bulletVisibility.value = true
@@ -72,14 +72,14 @@ class QuestionViewModel(val boxId: Int,
         }
     }
 
-    private fun getViewableCount(boxId: Int) {
+    private fun getRequiredViewingCount(boxId: Int) {
         uiScope.launch {
-            _viewableCount.value = getViewableCountFromDatabase(boxId, getMiliForBox(boxId))
+            _viewableCount.value = getRequiredViewingCountFromDatabase(boxId, getMiliForBox(boxId))
         }
     }
-    private suspend fun getViewableCountFromDatabase(boxId: Int, timeMilli: Long): Int {
+    private suspend fun getRequiredViewingCountFromDatabase(boxId: Int, timeMilli: Long): Int {
         return withContext(Dispatchers.IO) {
-            var count = datasource.totalCardsReadyToView(boxId, timeMilli)
+            var count = datasource.cardCountsRequiredViewing(boxId, timeMilli)
             count
         }
     }
@@ -100,7 +100,7 @@ class QuestionViewModel(val boxId: Int,
      */
     fun onBoxClicked(boxId: Int) {
         //Log.d("QuestionViewModel", "Id: ${id}")
-        getViewableCount(boxId)
+        getRequiredViewingCount(boxId)
         getTotalCount(boxId)
         getCurrentQuestion(boxId)
     }

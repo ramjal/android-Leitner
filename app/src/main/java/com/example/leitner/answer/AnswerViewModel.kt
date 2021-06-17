@@ -82,7 +82,7 @@ class AnswerViewModel(val cardIndex: Long,
 
     private suspend fun moveCardBox1Database(key: Long) {
         withContext(Dispatchers.IO) {
-            datasource.moveCardBox1(key)
+            datasource.moveCardToBox1(key)
         }
     }
 

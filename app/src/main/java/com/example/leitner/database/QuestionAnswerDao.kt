@@ -41,7 +41,7 @@ interface QuestionAnswerDao {
     }
 
     @Transaction
-    fun moveCardBox1(key: Long) {
+    fun moveCardToBox1(key: Long) {
         var theCard = getCardById(key)
         if (theCard != null) {
             val oldID = theCard.uniqueId
@@ -56,7 +56,7 @@ interface QuestionAnswerDao {
     fun getCardById(key: Long) : QuestionAnswer?
 
     @Query("Select count(uniqueId) from question_answer where boxId = :boxId and createdMilli < :timeMilli")
-    fun totalCardsReadyToView(boxId: Int, timeMilli: Long) : Int
+    fun cardCountsRequiredViewing(boxId: Int, timeMilli: Long) : Int
 
     @Query("Select * from question_answer where boxId = :boxId order by uniqueId limit 1")
     fun getFirstCardInBox(boxId: Int) : QuestionAnswer
