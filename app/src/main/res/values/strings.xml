@@ -30,4 +30,10 @@
     <string name="box_4">4</string>
     <string name="box_5">5</string>
 
+    <string name="notification_channel_id" translatable="false">leitner_channel</string>
+    <string name="notification_channel_name" translatable="true">Leitner</string>
+    <string name="notification_channel_description">Leitner reminder</string>
+    <string name="notification_title">Leitner Notification</string>
+    <string name="notification_text">Review your words now!</string>
+
 </resources>
