@@ -15,9 +15,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.leitner.database.*
 import com.example.leitner.databinding.ActivityMainBinding
+import com.example.leitner.notification.sendNotification
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -44,6 +46,14 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.notification_channel_id),
             getString(R.string.notification_channel_name)
         )
+
+        val notificationManager = ContextCompat.getSystemService(
+            application,
+            NotificationManager::class.java
+        ) as NotificationManager
+
+        notificationManager.sendNotification("Notification Message here!", application)
+
     }
 
     override fun onDestroy() {

@@ -2,10 +2,12 @@ package com.example.leitner.question
 
 import android.app.AlertDialog
 import android.app.Application
+import android.app.NotificationManager
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.leitner.R
 import com.example.leitner.database.QuestionAnswerDatabase
 import com.example.leitner.databinding.FragmentQuestionBinding
+import com.example.leitner.notification.sendNotification
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -86,6 +89,10 @@ class QuestionFragment : Fragment() {
                             editAddType = "edit", cardId = id, title = "Edit Card")
                     )
                 }
+                return true
+            }
+            R.id.action_settings -> {
+                findNavController().navigate(R.id.action_Question_to_Settings)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

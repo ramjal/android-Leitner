@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:icon="@drawable/ic_notifications"
+        app:title="@string/pref_title">
+
+        <SwitchPreferenceCompat
+            app:key="notification"
+            app:summaryOff="@string/notify_summary_off"
+            app:summaryOn="@string/notify_summary_on"
+            app:title="@string/pref_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

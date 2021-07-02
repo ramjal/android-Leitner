@@ -45,7 +45,7 @@ class NewCardFragment : Fragment() {
 
         //to be used in the click event
         if (myFragmentArgs.editAddType == "edit") {
-            binding.buttonAdd.setText("Edit Card")
+            binding.buttonAdd.setText("Update")
         }
 
         // Navigates back to question when button is pressed
@@ -55,7 +55,7 @@ class NewCardFragment : Fragment() {
                 findNavController().navigate(NewCardFragmentDirections.actionNewCardToQuestion(boxId = bId))
                 viewModel.onGoToQuestionComplete()
                 if (myFragmentArgs.editAddType == "add") {
-                    Toast.makeText(application, "Added New Card", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(application, "New Card Added!", Toast.LENGTH_SHORT).show()
                 }
             }
         })

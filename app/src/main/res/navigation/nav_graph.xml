@@ -30,6 +30,15 @@
             app:popExitAnim="@android:anim/slide_out_right"
             app:launchSingleTop="true"
             app:popUpTo="@id/NewCardFragment"/>
+        <action
+            android:id="@+id/action_Question_to_Settings"
+            app:destination="@id/SettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/SettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/AnswerFragment"
@@ -77,6 +86,19 @@
             android:defaultValue="1"/>
         <action
             android:id="@+id/action_NewCard_to_Question"
+            app:destination="@id/QuestionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/QuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.leitner.settings.SettingsFragment"
+        android:label="@string/settings_fragment_label"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_Settings_to_Question"
             app:destination="@id/QuestionFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"

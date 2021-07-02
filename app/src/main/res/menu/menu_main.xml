@@ -6,11 +6,18 @@
         android:id="@+id/action_addTestData"
         android:orderInCategory="100"
         android:title="@string/action_add_test"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_deleteAllData"
         android:orderInCategory="101"
         android:title="@string/action_delete_data"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="101"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_editCard"

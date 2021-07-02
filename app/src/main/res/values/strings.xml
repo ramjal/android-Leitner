@@ -10,6 +10,7 @@
     <string name="question_fragment_label">Question</string>
     <string name="answer_fragment_label">Answer</string>
     <string name="new_card_fragment_label">New Card</string>
+    <string name="settings_fragment_label">Settings</string>
     <string name="check">Check Answer</string>
     <string name="addCardButton">Add New Card</string>
     <string name="editQuestionHint">Enter Question Here</string>
@@ -35,5 +36,12 @@
     <string name="notification_channel_description">Leitner reminder</string>
     <string name="notification_title">Leitner Notification</string>
     <string name="notification_text">Review your words now!</string>
+
+    <string name="pref_title">Notification</string>
+    <string name="notify_summary_on">Automatically send notification viewable cards</string>
+    <string name="notify_summary_off">No notificaion will be sent</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

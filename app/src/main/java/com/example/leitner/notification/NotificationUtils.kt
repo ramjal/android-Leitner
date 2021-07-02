@@ -72,6 +72,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setNumber(0)
+
     notify(NOTIFICATION_ID, builder.build())
 }
 

@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def room_version = "2.3.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -60,8 +61,10 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
-
+    // lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    // preferences
+    implementation "androidx.preference:preference:1.1.0"
 
     // Testing
     testImplementation 'junit:junit:4.+'
