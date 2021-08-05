@@ -95,6 +95,11 @@ class QuestionFragment : Fragment() {
                 findNavController().navigate(R.id.action_Question_to_Settings)
                 return true
             }
+            R.id.action_box_6 -> {
+                viewModel.onBoxClicked(6)
+                unSelectBoxes()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -126,6 +131,14 @@ class QuestionFragment : Fragment() {
             4 -> binding.box4.isChecked = true
             5 -> binding.box5.isChecked = true
         }
+    }
+
+    private fun unSelectBoxes() {
+        binding.box1.isChecked = false
+        binding.box2.isChecked = false
+        binding.box3.isChecked = false
+        binding.box4.isChecked = false
+        binding.box5.isChecked = false
     }
 
     override fun onDestroyView() {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.example.leitner.answer.AnswerViewModel" />
@@ -49,6 +50,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
             android:onClick="@{()-> viewModel.onCorrect()}"
+            android:visibility="@{viewModel.correctBtnVisible ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

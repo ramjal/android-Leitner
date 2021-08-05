@@ -21,6 +21,10 @@ class AnswerViewModel(val cardIndex: Long,
     val questionAnswer : LiveData<QuestionAnswer>
         get() = _questionAnswer
 
+    private var _correctBtnVisible = MutableLiveData<Boolean>()
+    val correctBtnVisible: LiveData<Boolean>
+        get() = _correctBtnVisible
+
     private var _cardKey: Long
 
     init {
@@ -52,6 +56,7 @@ class AnswerViewModel(val cardIndex: Long,
         uiScope.launch {
             val card = getAnswerDatabase(key)
             _questionAnswer.value = card
+            _correctBtnVisible.value = _questionAnswer.value?.boxId != 6
         }
     }
 

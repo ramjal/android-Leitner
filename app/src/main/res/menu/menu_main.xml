@@ -31,5 +31,9 @@
         android:icon="@drawable/ic_add"
         android:title="@string/action_add_card"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/action_box_6"
+        android:orderInCategory="104"
+        android:title="@string/action_box_6"
+        app:showAsAction="never" />
 </menu>

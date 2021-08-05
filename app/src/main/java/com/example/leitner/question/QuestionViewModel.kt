@@ -96,13 +96,16 @@ class QuestionViewModel(val boxId: Int,
         }
     }
 
-    //Best spaced repetition time intervals: 1 day, 7 days, 16 days, 35 days
+    //Best spaced repetition time intervals: 1 day, 7 days, 16 days, 35 days, 80 days
     private fun getMilliForBox(boxId: Int): Long {
         var timeMilli: Long = 24 * 3600 * 1000 // 1 day
         when (boxId) {
+            2 -> timeMilli = 1 * timeMilli
             2 -> timeMilli = 7 * timeMilli
             3 -> timeMilli = 16 * timeMilli
             4 -> timeMilli = 35 * timeMilli
+            5 -> timeMilli = 80 * timeMilli
+            6 -> timeMilli = 175 * timeMilli
         }
         return System.currentTimeMillis() - timeMilli
     }
