@@ -42,17 +42,18 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        createNotificationChannel(
-            getString(R.string.notification_channel_id),
-            getString(R.string.notification_channel_name)
-        )
-
-        val notificationManager = ContextCompat.getSystemService(
-            application,
-            NotificationManager::class.java
-        ) as NotificationManager
-
-        notificationManager.sendNotification("Notification Message here!", application)
+//No need any notification at this time
+//        createNotificationChannel(
+//            getString(R.string.notification_channel_id),
+//            getString(R.string.notification_channel_name)
+//        )
+//
+//        val notificationManager = ContextCompat.getSystemService(
+//            application,
+//            NotificationManager::class.java
+//        ) as NotificationManager
+//
+//        notificationManager.sendNotification("Notification Message here!", application)
 
     }
 
