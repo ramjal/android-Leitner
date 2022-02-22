@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -58,6 +59,12 @@ class NewCardFragment : Fragment() {
                     Toast.makeText(application, "New Card Added!", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
+
+        // Enable buttonAdd only if the form is complete
+        binding.buttonAdd.isEnabled = false
+        viewModel.isFormComplete.observe(viewLifecycleOwner, Observer {
+            binding.buttonAdd.isEnabled = it
         })
 
         return binding.root

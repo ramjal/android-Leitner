@@ -21,6 +21,13 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
     val goToQuestion: LiveData<Boolean>
         get() = _goToQuestion
 
+    private var hasQuestion: Boolean = false
+    private var hasAnswer: Boolean = false
+
+    private val _isFormComplete = MutableLiveData<Boolean>()
+    val isFormComplete: LiveData<Boolean>
+        get() = _isFormComplete
+
     val newQuestion = MutableLiveData<String>()
     val newAnswer = MutableLiveData<String>()
     val boxId = MutableLiveData<Int>()
@@ -46,6 +53,18 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
                 _goToQuestion.value = true
             }
         }
+    }
+
+    fun onQuestionTextChange(text: CharSequence) {
+        Log.w("onQuestionTextChange", text.toString())
+        hasQuestion = !text.isNullOrEmpty()
+        _isFormComplete.value = hasQuestion && hasAnswer
+    }
+
+    fun onAnswerTextChange(text: CharSequence) {
+        Log.w("onAnswerTextChange", text.toString())
+        hasAnswer = !text.isNullOrEmpty()
+        _isFormComplete.value = hasQuestion && hasAnswer
     }
 
     fun onGoToQuestionComplete() {
