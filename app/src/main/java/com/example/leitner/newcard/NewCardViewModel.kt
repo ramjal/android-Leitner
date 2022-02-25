@@ -46,8 +46,12 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
             }
         } else {
             uiScope.launch {
-                addNewCardDatabase()
-                _goToQuestion.value = true
+                try {
+                    addNewCardDatabase()
+                    _goToQuestion.value = true
+                } catch (e: Exception) {
+                    Log.d("NewCardViewModel", "There was an exception: ${e?.message}")
+                }
             }
         }
     }
@@ -76,6 +80,7 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
             }
         }
     }
+
     private suspend fun getCardFromDatabase(): QuestionAnswer? {
         return withContext(Dispatchers.IO) {
             datasource.getCardById(cardId)
@@ -88,7 +93,12 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
                 question = newQuestion.value.toString(),
                 answer = newAnswer.value.toString()
             )
-            Log.d("NewCardViewModel", questionAnswer.createdMilli.toString())
+            //Log.d("NewCardViewModel", questionAnswer.createdMilli.toString())
+            val theList = datasource.getSimilarQuestions("%" + newQuestion.value.toString() + "%")
+            //Log.d("NewCardViewModel", "All Rows Count it: ${theList.count()}")
+            if (theList.count() > 0 ) {
+                throw Exception("Found similar words!")
+            }
             datasource.insert(questionAnswer)
         }
     }

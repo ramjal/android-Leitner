@@ -2,9 +2,6 @@ package com.example.leitner.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import java.time.Instant
-import java.time.LocalDate
-import java.util.*
 
 
 @Dao
@@ -30,7 +27,7 @@ interface QuestionAnswerDao {
 
     @Transaction
     fun moveCardUp(key: Long) {
-        var theCard = getCardById(key)
+        val theCard = getCardById(key)
         if (theCard != null) {
             val oldID = theCard.uniqueId
             theCard.uniqueId = 0
@@ -43,7 +40,7 @@ interface QuestionAnswerDao {
 
     @Transaction
     fun moveCardToBox1(key: Long) {
-        var theCard = getCardById(key)
+        val theCard = getCardById(key)
         if (theCard != null) {
             val oldID = theCard.uniqueId
             theCard.uniqueId = 0
@@ -53,6 +50,9 @@ interface QuestionAnswerDao {
             deleteCardById(oldID)
         }
     }
+
+    @Query("Select * from question_answer where question like :question")
+    fun getSimilarQuestions(question: String) : List<QuestionAnswer>
 
     @Query("Select * from question_answer where uniqueId = :key")
     fun getCardById(key: Long) : QuestionAnswer?
@@ -64,7 +64,7 @@ interface QuestionAnswerDao {
     fun getFirstViewableCardInBox(boxId: Int, timeMilli: Long) : QuestionAnswer
 
     @Query("Select * from question_answer")
-    fun getAllRows() : LiveData<List<QuestionAnswer>>
+    fun getAllRows() : List<QuestionAnswer>
 
     @Query("select count(uniqueId) from question_answer")
     fun getTotalCount(): Int
