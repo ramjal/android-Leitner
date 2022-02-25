@@ -87,6 +87,10 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
         }
     }
 
+    /**
+     * Insert a new card if there is not a similar card otherwise,
+     * raise an exception if a similar card found.
+     */
     private suspend fun addNewCardDatabase() {
         withContext(Dispatchers.IO) {
             val questionAnswer = QuestionAnswer(
