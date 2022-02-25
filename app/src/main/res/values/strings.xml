@@ -43,6 +43,7 @@
     <string name="notify_summary_off">No notificaion will be sent</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_update_text">Update</string>
 
 
 </resources>

@@ -25,6 +25,10 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
     val isFormComplete: LiveData<Boolean>
         get() = _isFormComplete
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
+
     val newQuestion = MutableLiveData<String>()
     val newAnswer = MutableLiveData<String>()
     val boxId = MutableLiveData<Int>()
@@ -50,7 +54,8 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
                     addNewCardDatabase()
                     _goToQuestion.value = true
                 } catch (e: Exception) {
-                    Log.d("NewCardViewModel", "There was an exception: ${e?.message}")
+                    Log.d("NewCardViewModel", "There was an exception: ${e.message}")
+                    _errorMessage.value = e.message
                 }
             }
         }
@@ -68,6 +73,10 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
 
     fun onGoToQuestionComplete() {
         _goToQuestion.value = false
+    }
+
+    fun onErroMessageDisplayed() {
+        _errorMessage.value = ""
     }
 
     private fun getValues() {
@@ -98,13 +107,18 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
                 answer = newAnswer.value.toString()
             )
             //Log.d("NewCardViewModel", questionAnswer.createdMilli.toString())
-            val theList = datasource.getSimilarQuestions("%" + newQuestion.value.toString() + "%")
+            val theList = datasource.getSimilarQuestions(getQuestionPart(newQuestion.value.toString()))
             //Log.d("NewCardViewModel", "All Rows Count it: ${theList.count()}")
             if (theList.count() > 0 ) {
                 throw Exception("Found similar words!")
             }
             datasource.insert(questionAnswer)
         }
+    }
+
+    private fun getQuestionPart(q: String): String {
+        val qNew = q.substringAfter(':').trim()
+        return "%$qNew"
     }
 
     private suspend fun updateCardDatabase(id: Long) {
