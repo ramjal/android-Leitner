@@ -1,9 +1,6 @@
 package com.example.leitner.newcard
 
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,14 +53,12 @@ class NewCardViewModel(val datasource: QuestionAnswerDao,
     }
 
     fun onQuestionTextChange(text: CharSequence) {
-        Log.w("onQuestionTextChange", text.toString())
-        hasQuestion = !text.isNullOrEmpty()
+        hasQuestion = text.isNotEmpty()
         _isFormComplete.value = hasQuestion && hasAnswer
     }
 
     fun onAnswerTextChange(text: CharSequence) {
-        Log.w("onAnswerTextChange", text.toString())
-        hasAnswer = !text.isNullOrEmpty()
+        hasAnswer = text.isNotEmpty()
         _isFormComplete.value = hasQuestion && hasAnswer
     }
 
