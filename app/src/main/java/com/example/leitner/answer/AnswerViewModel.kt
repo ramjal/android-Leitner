@@ -17,6 +17,10 @@ class AnswerViewModel(val cardIndex: Long,
     val gotoNexWord: LiveData<Boolean>
         get() = _gotoNexWord
 
+    private val _gotoGoogle = MutableLiveData<Boolean>()
+    val gotoGoogle: LiveData<Boolean>
+        get() = _gotoGoogle
+
     private var _questionAnswer = MutableLiveData<QuestionAnswer>()
     val questionAnswer : LiveData<QuestionAnswer>
         get() = _questionAnswer
@@ -46,6 +50,14 @@ class AnswerViewModel(val cardIndex: Long,
     fun onWrong() {
         moveCardToBox1(_cardKey)
         _gotoNexWord.value = true
+    }
+
+    fun onSearchGoogle() {
+        _gotoGoogle.value = true
+    }
+
+    fun onSearchGoogleComplete() {
+        _gotoGoogle.value = false
     }
 
     fun onNextWordComplete() {

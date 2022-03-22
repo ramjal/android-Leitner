@@ -13,6 +13,7 @@
     <string name="new_card_fragment_label">New Card</string>
     <string name="settings_fragment_label">Settings</string>
     <string name="check">Check Answer</string>
+    <string name="googleButton">Search Google</string>
     <string name="addCardButton">Add New Card</string>
     <string name="editQuestionHint">Enter Question Here</string>
     <string name="editAnswerHist">Enter Answer Here</string>
