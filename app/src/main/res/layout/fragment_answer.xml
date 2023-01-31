@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".answer.AnswerFragment">
+
         <Button
             android:id="@+id/button_google"
             android:layout_width="wrap_content"
@@ -25,6 +26,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <TextView
+            android:id="@+id/textview_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="64dp"
+            android:text="@{viewModel.questionAnswer.question}"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_google" />
+
         <TextView
             android:id="@+id/textview_answer"
             android:layout_width="match_parent"
@@ -33,11 +48,10 @@
             android:text="@{viewModel.questionAnswer.answer}"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fab_wrong"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_question" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_wrong"
